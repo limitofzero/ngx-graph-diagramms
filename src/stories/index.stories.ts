@@ -19,21 +19,30 @@ storiesOf('Diagramm widget', module).add('widget', () => ({
   }
 }));
 
-storiesOf('Node layer widget', module).add('widget', () => ({
-  component: NodeLayerComponent,
-  props: {
-    nodes: [ new NodeModel(10, 10), new NodeModel(50, 40) ]
-  },
-  moduleMetadata: {
-    declarations: [
-      NodeWidgetComponent,
-      DefaultNodeWidgetComponent
-    ],
-    entryComponents: [
-      DefaultNodeWidgetComponent
-    ],
-    providers: [
-      WidgetFactoryService
-    ]
-  }
-}));
+storiesOf('Node layer widget', module).add('widget', () => {
+  const nodes = [ new NodeModel(), new NodeModel() ];
+  nodes[0].x = 200;
+  nodes[0].y = 100;
+
+  return {
+   component: NodeLayerComponent,
+   props: {
+     nodes,
+     nodeMouseDown: console.log,
+     nodeMouseUp: console.log,
+     nodeMouseMove: console.log,
+   },
+   moduleMetadata: {
+     declarations: [
+       NodeWidgetComponent,
+       DefaultNodeWidgetComponent
+     ],
+     entryComponents: [
+       DefaultNodeWidgetComponent
+     ],
+     providers: [
+       WidgetFactoryService
+     ]
+   }
+  };
+});

@@ -1,9 +1,13 @@
-export class NodeModel {
+import { BaseModel } from './base.model';
 
+export class NodeModel extends BaseModel {
+  x = 0;
+  y = 0;
   width: number;
   height: number;
 
-  constructor(public x: number = 0, public y: number = 0) {
+  constructor(id?: number) {
+    super(id);
   }
 
   setPosition(x: number, y: number): void {

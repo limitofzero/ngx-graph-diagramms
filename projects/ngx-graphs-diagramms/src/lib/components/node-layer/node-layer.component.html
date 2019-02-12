@@ -1,5 +1,6 @@
 <div class="node-layer">
-  <ng-container *ngFor="let node of nodes">
-    <ngx-node-widget [nodeModel]="node"></ngx-node-widget>
+  <ng-container *ngFor="let node of nodes; index as nodeIndex;">
+    <ngx-node-widget [nodeModel]="node"
+                     (mousedown)="onMouseDownHandler(node)"></ngx-node-widget>
   </ng-container>
 </div>
