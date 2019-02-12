@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-graphs-diagramms": [
+        "dist/ngx-graphs-diagramms"
+      ],
+      "ngx-graphs-diagramms/*": [
+        "dist/ngx-graphs-diagramms/*"
+      ]
+    }
   }
 }
