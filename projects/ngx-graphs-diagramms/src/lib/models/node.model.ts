@@ -10,14 +10,30 @@ export class NodeModel extends BaseModel {
     super(id);
   }
 
-  setPosition(x: number, y: number): void {
-    this.x = x;
-    this.y = y;
+  clone(): NodeModel {
+    const clonedNode = new NodeModel(this.id);
+    clonedNode.x = this.x;
+    clonedNode.y = this.y;
+    clonedNode.width = this.width;
+    clonedNode.height = this.height;
+
+    return clonedNode;
   }
 
-  updateDimensions(width: number, height: number): void {
-    this.width = width;
-    this.height = height;
+  getNodeWithPosition(x: number, y: number): NodeModel {
+    const newObject = this.clone();
+    newObject.x = x;
+    newObject.y = y;
+
+    return newObject;
+  }
+
+  getNodeWithDimensions(width: number, height: number): NodeModel {
+    const newObject = this.clone();
+    newObject.width = width;
+    newObject.height = height;
+
+    return newObject;
   }
 }
 

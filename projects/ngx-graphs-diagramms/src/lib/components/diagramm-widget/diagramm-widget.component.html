@@ -1,4 +1,5 @@
 <div class="diagramm">
-  <div class="diagramm_selector">
-  </div>
+  <ngx-node-layer [nodes]="nodes"
+                  [selectedId]="selectedEntityId"
+                  (nodeClicked)="onEntityMouseDown($event)"></ngx-node-layer>
 </div>

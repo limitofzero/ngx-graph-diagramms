@@ -11,6 +11,9 @@ export class NodeLayerComponent {
   @Input()
   nodes: NodeModel[] = [];
 
+  @Input()
+  selectedId: number = null;
+
   @Output()
   nodeClicked = new EventEmitter<NodeModel>();
 

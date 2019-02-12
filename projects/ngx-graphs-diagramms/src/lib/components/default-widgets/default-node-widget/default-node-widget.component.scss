@@ -1,8 +1,9 @@
 .default-node-widget {
   cursor: pointer;
+  border-radius: 5px;
+  background-color: green;
 
   &.selected {
-    border: 1px solid #000;
-    border-radius: 5px;
+    border: 1px solid white;
   }
 }

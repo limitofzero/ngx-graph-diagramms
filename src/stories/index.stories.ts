@@ -12,37 +12,54 @@ import { NodeModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/no
 import { NodeWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/node-widget/node-widget.component';
 import { WidgetFactoryService } from '../../projects/ngx-graphs-diagramms/src/lib/services/widget-factory/widget-factory.service';
 
-storiesOf('Diagramm widget', module).add('widget', () => ({
-  component: DiagrammWidgetComponent,
-  moduleMetadata: {
-    imports: []
-  }
-}));
-
-storiesOf('Node layer widget', module).add('widget', () => {
+storiesOf('Diagramm widget', module).add('widget', () => {
   const nodes = [ new NodeModel(), new NodeModel() ];
   nodes[0].x = 200;
   nodes[0].y = 100;
 
   return {
-   component: NodeLayerComponent,
-   props: {
-     nodes,
-     nodeMouseDown: console.log,
-     nodeMouseUp: console.log,
-     nodeMouseMove: console.log,
-   },
-   moduleMetadata: {
-     declarations: [
-       NodeWidgetComponent,
-       DefaultNodeWidgetComponent
-     ],
-     entryComponents: [
-       DefaultNodeWidgetComponent
-     ],
-     providers: [
-       WidgetFactoryService
-     ]
-   }
+    component: DiagrammWidgetComponent,
+    props: {
+      nodes
+    },
+    moduleMetadata: {
+      declarations: [
+        NodeWidgetComponent,
+        DefaultNodeWidgetComponent,
+        NodeLayerComponent
+      ],
+      entryComponents: [
+        DefaultNodeWidgetComponent
+      ],
+      providers: [
+        WidgetFactoryService
+      ]
+    }
   };
 });
+
+// storiesOf('Node layer widget', module).add('widget', () => {
+//   const nodes = [ new NodeModel(), new NodeModel() ];
+//   nodes[0].x = 200;
+//   nodes[0].y = 100;
+//
+//   return {
+//    component: NodeLayerComponent,
+//    props: {
+//      nodes,
+//      nodeClicked: console.log
+//    },
+//    moduleMetadata: {
+//      declarations: [
+//        NodeWidgetComponent,
+//        DefaultNodeWidgetComponent
+//      ],
+//      entryComponents: [
+//        DefaultNodeWidgetComponent
+//      ],
+//      providers: [
+//        WidgetFactoryService
+//      ]
+//    }
+//   };
+// });
