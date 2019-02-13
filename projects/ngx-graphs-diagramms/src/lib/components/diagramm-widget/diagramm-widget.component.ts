@@ -39,6 +39,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.initListeningMouseMoveEvent();
+    this.initListeningMouseUp();
   }
 
   private initListeningMouseMoveEvent(): void {
@@ -53,6 +54,18 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
   private onMouseMoveHandler(event: any): void {
     console.log(event);
+  }
+
+  private initListeningMouseUp(): void {
+    fromEvent(this.diagramWidget.nativeElement, 'mouseup').pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe({
+      next: () => this.resetClickedEntityId()
+    });
+  }
+
+  private resetClickedEntityId(): void {
+    this.clickedEntityId = null;
   }
 
   ngOnDestroy(): void {
