@@ -17,6 +17,8 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   nodes[0].x = 200;
   nodes[0].y = 100;
 
+  nodes[1].x = 10;
+
   return {
     component: DiagrammWidgetComponent,
     props: {
