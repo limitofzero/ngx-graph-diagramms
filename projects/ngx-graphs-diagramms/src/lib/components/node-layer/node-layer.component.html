@@ -2,6 +2,6 @@
   <ng-container *ngFor="let node of nodes;">
     <ngx-node-widget [nodeModel]="node"
                      [selected]="node.id === selectedId"
-                     (mousedown)="onMouseDownHandler(node)"></ngx-node-widget>
+                     (mousedown)="onMouseDownHandler(node, $event)"></ngx-node-widget>
   </ng-container>
 </div>

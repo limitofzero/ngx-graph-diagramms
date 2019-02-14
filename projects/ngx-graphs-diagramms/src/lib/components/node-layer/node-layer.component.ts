@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NodeModel } from '../../models/node.model';
+import { BaseModel } from '../../models/base.model';
+
+export interface EntityClickedEvent {
+  entity: BaseModel;
+  event: MouseEvent;
+}
 
 @Component({
   selector: 'ngx-node-layer',
@@ -15,9 +21,9 @@ export class NodeLayerComponent {
   selectedId: number = null;
 
   @Output()
-  nodeClicked = new EventEmitter<NodeModel>();
+  nodeClicked = new EventEmitter<EntityClickedEvent>();
 
-  onMouseDownHandler(node: NodeModel): void {
-    this.nodeClicked.emit(node);
+  onMouseDownHandler(node: NodeModel, event: MouseEvent): void {
+    this.nodeClicked.emit({ entity: node, event });
   }
 }

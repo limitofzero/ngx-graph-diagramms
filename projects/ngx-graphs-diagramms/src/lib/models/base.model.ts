@@ -1,5 +1,5 @@
 export class BaseModel {
-  private static nextId = 0;
+  private static nextId = 1;
 
   id: number;
 

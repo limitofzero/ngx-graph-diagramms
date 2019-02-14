@@ -12,6 +12,7 @@ import { BaseModel } from '../../models/base.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil, throttleTime } from 'rxjs/operators';
+import { EntityClickedEvent } from '../node-layer/node-layer.component';
 
 @Component({
   selector: 'ngx-diagramm-widget',
@@ -30,7 +31,9 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
-  onEntityMouseDown(entity: BaseModel): void {
+  onEntityMouseDown(entityEvent: EntityClickedEvent): void {
+    const { entity, event } = entityEvent;
+
     if (entity) {
       this.selectedEntityId = entity.id;
       this.clickedEntityId = entity.id;
