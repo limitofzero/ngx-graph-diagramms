@@ -39,29 +39,3 @@ storiesOf('Diagramm widget', module).add('widget', () => {
     }
   };
 });
-
-// storiesOf('Node layer widget', module).add('widget', () => {
-//   const nodes = [ new NodeModel(), new NodeModel() ];
-//   nodes[0].x = 200;
-//   nodes[0].y = 100;
-//
-//   return {
-//    component: NodeLayerComponent,
-//    props: {
-//      nodes,
-//      nodeClicked: console.log
-//    },
-//    moduleMetadata: {
-//      declarations: [
-//        NodeWidgetComponent,
-//        DefaultNodeWidgetComponent
-//      ],
-//      entryComponents: [
-//        DefaultNodeWidgetComponent
-//      ],
-//      providers: [
-//        WidgetFactoryService
-//      ]
-//    }
-//   };
-// });
