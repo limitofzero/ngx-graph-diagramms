@@ -10,13 +10,11 @@ import {
 import { NodeModel } from '../../models/node.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
-import { filter, takeUntil, throttleTime } from 'rxjs/operators';
-import { DraggableEntityClicked } from '../node-layer/node-layer.component';
-import { Draggable } from '../../interfaces/draggable';
-import { BaseModel } from '../../models/base.model';
+import { filter, takeUntil } from 'rxjs/operators';
+import { NodeClickedEvent } from '../node-layer/node-layer.component';
 
-export interface DraggableEntityCoords {
-  entity: Draggable;
+export interface NodeCoords {
+  entity: NodeModel;
   startX: number;
   startY: number;
 }
@@ -31,28 +29,25 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
   private selectedEntityId: number = null;
-  private entityCoords: DraggableEntityCoords = null;
+  private entityCoords: NodeCoords = null;
 
   @Input()
   nodes: NodeModel[] = [];
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
-  constructor(private ref: ChangeDetectorRef) {
+  constructor(private ref: ChangeDetectorRef) {}
 
-  }
-
-  onDraggableEntityClicked(entityEvent: DraggableEntityClicked): void {
-    console.log(entityEvent);
+  onNodeClicked(entityEvent: NodeClickedEvent): void {
     const { entity, event } = entityEvent;
 
     if (entity) {
       this.selectedEntityId = entity.id;
-      this.setDraggableEntityCoords(entity, event);
+      this.setNodePosition(entity, event);
     }
   }
 
-  setDraggableEntityCoords(entity: Draggable, event: MouseEvent): void {
+  setNodePosition(entity: NodeModel, event: MouseEvent): void {
     const { pageX, pageY } = event;
     const startX = pageX;
     const startY = pageY;
@@ -79,8 +74,8 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   private onMouseMoveHandler(event: MouseEvent): void {
-    const {pageX, pageY} = event;
-    const {startX, startY, entity } = this.entityCoords;
+    const { pageX, pageY } = event;
+    const { startX, startY, entity } = this.entityCoords;
 
     const diffX = (pageX - startX);
     const diffY = (pageY - startY);
@@ -98,7 +93,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.entityCoords.entity = updatedEntity;
     this.entityCoords.startY = pageY;
     this.entityCoords.startX = pageX;
-    this.ref.detectChanges();
+    this.ref.markForCheck();
   }
 
   private initListeningMouseUp(): void {

@@ -1,7 +1,6 @@
 import { BaseModel } from './base.model';
-import { Draggable } from '../interfaces/draggable';
 
-export class NodeModel extends BaseModel implements Draggable {
+export class NodeModel extends BaseModel {
   x = 0;
   y = 0;
   width: number;

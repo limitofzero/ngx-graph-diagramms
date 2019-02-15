@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NodeModel } from '../../models/node.model';
-import { BaseModel } from '../../models/base.model';
-import { Draggable } from '../../interfaces/draggable';
 
-export interface DraggableEntityClicked {
-  entity: Draggable;
+export interface NodeClickedEvent {
+  entity: NodeModel;
   event: MouseEvent;
 }
 
@@ -22,7 +20,7 @@ export class NodeLayerComponent {
   selectedId: number = null;
 
   @Output()
-  nodeClicked = new EventEmitter<DraggableEntityClicked>();
+  nodeClicked = new EventEmitter<NodeClickedEvent>();
 
   onMouseDownHandler(node: NodeModel, event: MouseEvent): void {
     this.nodeClicked.emit({ entity: node, event });
