@@ -11,6 +11,7 @@ export class DefaultPortModel extends PortModel {
     const cloned = new DefaultPortModel(this.id);
     cloned.x = this.x;
     cloned.y = this.y;
+    cloned.links = this.links;
     cloned.positionClass = this.positionClass;
 
     return cloned;
