@@ -11,9 +11,9 @@ import {
 import { NodeWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/node-widget/node-widget.component';
 import { WidgetFactoryService } from '../../projects/ngx-graphs-diagramms/src/lib/services/widget-factory/widget-factory.service';
 import { PortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/port-widget/port-widget.component';
-import { PortModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/port.model';
 import { DefaultPortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-port-widget/default-port-widget.component';
 import { DefaultNodeModel } from '../../projects/ngx-graphs-diagramms/src/lib/default-models/default-node.model';
+import { DefaultPortModel } from '../../projects/ngx-graphs-diagramms/src/lib/default-models/default-port.model';
 
 storiesOf('Diagramm widget', module).add('widget', () => {
   const nodes = [ new DefaultNodeModel(), new DefaultNodeModel() ];
@@ -25,8 +25,8 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   nodes[1].description = 'node2';
 
   const ports = {
-    0: new PortModel(),
-    1: new PortModel()
+    0: new DefaultPortModel(),
+    1: new DefaultPortModel()
   };
   ports[0].positionClass = 'left-center';
   ports[1].positionClass = 'right-center';
