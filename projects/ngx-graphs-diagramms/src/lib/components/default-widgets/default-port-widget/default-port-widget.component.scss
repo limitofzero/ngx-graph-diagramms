@@ -1,0 +1,15 @@
+.default-port-widget {
+  position: absolute;
+
+  &.left-center {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &.right-center {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

@@ -1,10 +1,13 @@
 import { BaseModel } from './base.model';
+import { PortModel } from './port.model';
 
 export class NodeModel extends BaseModel {
   x = 0;
   y = 0;
   width: number;
   height: number;
+
+  ports: { [s: string]: PortModel } = {};
 
   constructor(id?: number) {
     super(id);
@@ -16,6 +19,7 @@ export class NodeModel extends BaseModel {
     clonedNode.y = this.y;
     clonedNode.width = this.width;
     clonedNode.height = this.height;
+    clonedNode.ports = this.ports;
 
     return clonedNode;
   }
