@@ -1,4 +1,5 @@
 <div class="default-node-widget" [class.selected]="selected">
+  <div>{{ defaultNodeModel?.description }}</div>
   <ng-container *ngFor="let item of nodeModel?.ports | keyvalue">
     <ngx-port-widget [portModel]="item.value"></ngx-port-widget>
   </ng-container>

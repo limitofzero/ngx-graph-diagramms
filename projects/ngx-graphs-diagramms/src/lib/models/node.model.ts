@@ -4,8 +4,6 @@ import { PortModel } from './port.model';
 export class NodeModel extends BaseModel {
   x = 0;
   y = 0;
-  width: number;
-  height: number;
 
   ports: { [s: string]: PortModel } = {};
 
@@ -14,30 +12,20 @@ export class NodeModel extends BaseModel {
   }
 
   clone(): NodeModel {
-    const clonedNode = new NodeModel(this.id);
-    clonedNode.x = this.x;
-    clonedNode.y = this.y;
-    clonedNode.width = this.width;
-    clonedNode.height = this.height;
-    clonedNode.ports = this.ports;
+    const cloned = new NodeModel(this.id);
+    cloned.x = this.x;
+    cloned.y = this.y;
+    cloned.ports = this.ports;
 
-    return clonedNode;
+    return cloned;
   }
 
-  getNodeWithPosition(x: number, y: number): NodeModel {
-    const newObject = this.clone();
-    newObject.x = x;
-    newObject.y = y;
+  cloneNodeWithPosition(x: number, y: number): NodeModel {
+    const cloned = this.clone();
+    cloned.x = x;
+    cloned.y = y;
 
-    return newObject;
-  }
-
-  getNodeWithDimensions(width: number, height: number): NodeModel {
-    const newObject = this.clone();
-    newObject.width = width;
-    newObject.height = height;
-
-    return newObject;
+    return cloned;
   }
 }
 

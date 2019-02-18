@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NodeModel } from '../../../models/node.model';
+import { DefaultNodeModel } from '../../../default-models/default-node.model';
 
 
 @Component({
@@ -13,4 +14,8 @@ export class DefaultNodeWidgetComponent {
 
   @Input()
   nodeModel: NodeModel = null;
+
+  get defaultNodeModel(): DefaultNodeModel {
+    return this.nodeModel as DefaultNodeModel;
+  }
 }

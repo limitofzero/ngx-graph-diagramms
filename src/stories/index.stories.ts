@@ -8,19 +8,21 @@ import { NodeLayerComponent } from '../../projects/ngx-graphs-diagramms/src/lib/
 import {
   DefaultNodeWidgetComponent,
 } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-node-widget/default-node-widget.component';
-import { NodeModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/node.model';
 import { NodeWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/node-widget/node-widget.component';
 import { WidgetFactoryService } from '../../projects/ngx-graphs-diagramms/src/lib/services/widget-factory/widget-factory.service';
 import { PortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/port-widget/port-widget.component';
 import { PortModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/port.model';
 import { DefaultPortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-port-widget/default-port-widget.component';
+import { DefaultNodeModel } from '../../projects/ngx-graphs-diagramms/src/lib/default-models/default-node.model';
 
 storiesOf('Diagramm widget', module).add('widget', () => {
-  const nodes = [ new NodeModel(), new NodeModel() ];
+  const nodes = [ new DefaultNodeModel(), new DefaultNodeModel() ];
   nodes[0].x = 200;
   nodes[0].y = 100;
+  nodes[0].description = 'node1';
 
   nodes[1].x = 10;
+  nodes[1].description = 'node2';
 
   const ports = {
     0: new PortModel(),
