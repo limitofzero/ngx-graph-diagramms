@@ -22,7 +22,7 @@ storiesOf('Diagramm widget', module).add('widget', () => {
 
   nodes[1].x = 10;
 
-  const ports ={
+  const ports = {
     0: new PortModel(),
     1: new PortModel()
   };
@@ -32,10 +32,15 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   nodes[0].ports = ports;
   nodes[1].ports = ports;
 
+  const nodeMap = nodes.reduce((map, node) => {
+    map[node.id] = node;
+    return map;
+  }, {});
+
   return {
     component: DiagrammWidgetComponent,
     props: {
-      nodes
+      nodes: nodeMap
     },
     moduleMetadata: {
       declarations: [

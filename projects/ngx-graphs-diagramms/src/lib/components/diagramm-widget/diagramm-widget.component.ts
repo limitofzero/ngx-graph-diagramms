@@ -12,6 +12,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
 import { NodeClickedEvent } from '../node-layer/node-layer.component';
+import { NodeMap } from '../../interfaces/node-map';
 
 export interface NodeCoords {
   entity: NodeModel;
@@ -32,7 +33,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   private entityCoords: NodeCoords = null;
 
   @Input()
-  nodes: NodeModel[] = [];
+  nodes: NodeMap = {};
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
@@ -87,9 +88,8 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     updatedEntity.x = x;
     updatedEntity.y = y;
 
-    const nodeIndex = this.nodes.findIndex(node => updatedEntity.id === node.id);
-    this.nodes = this.nodes.slice();
-    this.nodes[nodeIndex] = updatedEntity;
+    this.nodes = { ... this.nodes };
+    this.nodes[updatedEntity.id] = updatedEntity;
     this.entityCoords.entity = updatedEntity;
     this.entityCoords.startY = pageY;
     this.entityCoords.startX = pageX;

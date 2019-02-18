@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NodeModel } from '../../models/node.model';
+import { NodeMap } from '../../interfaces/node-map';
 
 export interface NodeClickedEvent {
   entity: NodeModel;
@@ -14,7 +15,7 @@ export interface NodeClickedEvent {
 })
 export class NodeLayerComponent {
   @Input()
-  nodes: NodeModel[] = [];
+  nodes: NodeMap = {};
 
   @Input()
   selectedId: number = null;
