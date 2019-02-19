@@ -1,5 +1,5 @@
 <div class="node-layer">
-  <ng-container *ngFor="let item of nodes | keyvalue; trackBy: item">
+  <ng-container *ngFor="let item of nodes | keyvalue; trackBy: trackByFn">
     <ngx-node-widget [nodeModel]="item.value"
                      [selected]="item.key === selectedId"
                      (onNodeClicked)="onMouseDownHandler($event)"></ngx-node-widget>

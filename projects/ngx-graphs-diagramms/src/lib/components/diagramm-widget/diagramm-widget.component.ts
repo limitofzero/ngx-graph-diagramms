@@ -110,6 +110,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log('td')
     this.onDestroy.complete();
   }
 }
