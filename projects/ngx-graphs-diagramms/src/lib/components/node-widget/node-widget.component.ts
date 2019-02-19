@@ -1,14 +1,15 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, EventEmitter,
   Input, OnChanges,
-  OnInit,
+  OnInit, Output,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
 import { WidgetFactoryService } from '../../services/widget-factory/widget-factory.service';
 import { NodeModel } from '../../models/node.model';
 import { DefaultNodeWidgetComponent } from '../default-widgets/default-node-widget/default-node-widget.component';
+import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
 
 @Component({
   selector: 'ngx-node-widget',
@@ -28,7 +29,15 @@ export class NodeWidgetComponent implements OnInit, OnChanges {
   @ViewChild('nodeWidget', { read: ViewContainerRef })
   nodeWidget: ViewContainerRef;
 
+  @Output()
+  onNodeClicked = new EventEmitter<NodeClickedEvent>();
+
   constructor(private widgetFactory: WidgetFactoryService) {}
+
+  mouseDownHandler(event: MouseEvent): void {
+    const clickedEvent = { widget: this.widgetInstance, event };
+    this.onNodeClicked.emit(clickedEvent);
+  }
 
   ngOnInit(): void {
     const factory = this.widgetFactory.getNodeWidgetFactory();

@@ -1,11 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NodeModel } from '../../models/node.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { NodeMap } from '../../interfaces/node-map';
-
-export interface NodeClickedEvent {
-  entity: NodeModel;
-  event: MouseEvent;
-}
+import { NodeWidgetComponent } from '../node-widget/node-widget.component';
+import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -23,7 +27,9 @@ export class NodeLayerComponent {
   @Output()
   nodeClicked = new EventEmitter<NodeClickedEvent>();
 
-  onMouseDownHandler(node: NodeModel, event: MouseEvent): void {
-    this.nodeClicked.emit({ entity: node, event });
+  @ViewChildren(NodeWidgetComponent) nodeWidget: QueryList<NodeWidgetComponent>;
+
+  onMouseDownHandler(event: NodeClickedEvent): void {
+    this.nodeClicked.emit(event);
   }
 }

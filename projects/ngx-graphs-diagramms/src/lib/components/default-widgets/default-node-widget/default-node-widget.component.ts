@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { NodeModel } from '../../../models/node.model';
 import { DefaultNodeModel } from '../../../default-models/default-node.model';
+import { NodeWidget } from '../../../interfaces/node-widget';
 
 
 @Component({
@@ -8,7 +9,9 @@ import { DefaultNodeModel } from '../../../default-models/default-node.model';
   templateUrl: './default-node-widget.component.html',
   styleUrls: ['./default-node-widget.component.scss']
 })
-export class DefaultNodeWidgetComponent {
+export class DefaultNodeWidgetComponent implements NodeWidget {
+  @ViewChild('positionedContainer', { read: ElementRef }) positionedContainer;
+
   @Input()
   selected = false;
 

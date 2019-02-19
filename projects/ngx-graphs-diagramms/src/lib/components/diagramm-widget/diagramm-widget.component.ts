@@ -11,8 +11,8 @@ import { NodeModel } from '../../models/node.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
-import { NodeClickedEvent } from '../node-layer/node-layer.component';
 import { NodeMap } from '../../interfaces/node-map';
+import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
 
 export interface NodeCoords {
   entity: NodeModel;
@@ -40,11 +40,12 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   constructor(private ref: ChangeDetectorRef) {}
 
   onNodeClicked(entityEvent: NodeClickedEvent): void {
-    const { entity, event } = entityEvent;
+    const { widget, event } = entityEvent;
 
-    if (entity) {
-      this.selectedEntityId = entity.id;
-      this.setNodePosition(entity, event);
+    if (widget) {
+      const { nodeModel } = widget;
+      this.selectedEntityId = nodeModel.id;
+      this.setNodePosition(nodeModel, event);
     }
   }
 
