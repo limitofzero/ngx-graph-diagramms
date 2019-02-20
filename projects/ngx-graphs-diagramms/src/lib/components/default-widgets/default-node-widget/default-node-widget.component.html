@@ -5,6 +5,6 @@
      #positionedContainer>
   <div>{{ defaultNodeModel?.description }}</div>
   <ng-container *ngFor="let item of nodeModel?.ports | keyvalue">
-    <ngx-port-widget [portModel]="item.value"></ngx-port-widget>
+    <ngx-port-widget [portModel]="item.value" #port></ngx-port-widget>
   </ng-container>
 </div>

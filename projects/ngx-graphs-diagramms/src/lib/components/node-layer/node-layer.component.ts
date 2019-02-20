@@ -14,6 +14,8 @@ import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
 import { KeyValue } from '@angular/common';
 import { NodeModel } from '../../models/node.model';
 import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
+import { LinkMap } from '../../interfaces/link-map';
+import { PortCoords } from '../../interfaces/port-coords';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -27,6 +29,15 @@ export class NodeLayerComponent implements AfterViewInit {
 
   @Input()
   selectedId: number = null;
+
+  @Input()
+  showLinks = false;
+
+  @Input()
+  links: LinkMap = {};
+
+  @Input()
+  portCoords: PortCoords = {};
 
   @Output()
   nodeClicked = new EventEmitter<NodeClickedEvent>();

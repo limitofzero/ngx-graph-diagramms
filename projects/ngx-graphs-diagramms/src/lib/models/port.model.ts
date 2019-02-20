@@ -1,9 +1,8 @@
 import { BaseModel } from './base.model';
+import { LinkModel } from './link.model';
 
 export class PortModel extends BaseModel {
-  x: number;
-  y: number;
-  links: Set<number> = new Set<number>();
+  links: Set<string> = new Set<string>();
 
   constructor(id?: string) {
     super(id);
@@ -11,10 +10,26 @@ export class PortModel extends BaseModel {
 
   clone(): PortModel {
     const cloned = new PortModel(this.id);
-    cloned.x = this.x;
-    cloned.y = this.y;
     cloned.links = this.links;
 
     return cloned;
+  }
+
+  addLink(link: LinkModel): void {
+    const id = link.id;
+    this.addLinkById(id);
+  }
+
+  addLinkById(id: string): void {
+    this.links.add(id);
+  }
+
+  removeLink(link: LinkModel): void {
+    const id = link.id;
+    this.removeLinkById(id);
+  }
+
+  removeLinkById(id: string): void {
+    this.links.delete(id);
   }
 }

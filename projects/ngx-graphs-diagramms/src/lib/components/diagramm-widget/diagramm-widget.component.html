@@ -1,6 +1,10 @@
 <div class="diagramm" #diagramWidget>
   <ngx-node-layer [nodes]="nodes"
                   [selectedId]="selectedEntityId"
+                  [showLinks]="nodesRendered"
+                  [links]="links"
+                  [portCoords]="portCoords"
                   (nodesRendered)="nodesRenderedHandler($event)"
-                  (nodeClicked)="onNodeClicked($event)"></ngx-node-layer>
+                  (nodeClicked)="onNodeClicked($event)">
+  </ngx-node-layer>
 </div>

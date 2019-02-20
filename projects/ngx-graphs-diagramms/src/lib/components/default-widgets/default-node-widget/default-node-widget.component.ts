@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NodeModel } from '../../../models/node.model';
 import { DefaultNodeModel } from '../../../default-models/default-node.model';
 import { SpecificNodeWidget } from '../../../interfaces/specific-node-widget';
+import { PortWidgetComponent } from '../../port-widget/port-widget.component';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { SpecificNodeWidget } from '../../../interfaces/specific-node-widget';
 })
 export class DefaultNodeWidgetComponent implements SpecificNodeWidget {
   @ViewChild('positionedContainer', { read: ElementRef }) positionedContainer;
+
+  @ViewChildren('port') portWidgets: QueryList<PortWidgetComponent>;
 
   @Input()
   selected = false;

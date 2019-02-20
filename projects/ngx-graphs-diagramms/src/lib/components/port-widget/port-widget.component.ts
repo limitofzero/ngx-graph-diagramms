@@ -19,12 +19,12 @@ import { DefaultPortWidgetComponent } from '../default-widgets/default-port-widg
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PortWidgetComponent implements OnInit, OnChanges {
-  private instance: DefaultPortWidgetComponent;
+  public instance: DefaultPortWidgetComponent;
 
   @Input()
   portModel: PortModel = null;
 
-  @ViewChild('portWidget', { read: ViewContainerRef })
+  @ViewChild('cpecificWidget', { read: ViewContainerRef })
   portWidget: ViewContainerRef;
 
   constructor(private widgetFactory: WidgetFactoryService) {}

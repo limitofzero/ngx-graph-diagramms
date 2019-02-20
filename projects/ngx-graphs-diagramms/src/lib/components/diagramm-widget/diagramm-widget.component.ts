@@ -13,7 +13,10 @@ import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
 import { NodeMap } from '../../interfaces/node-map';
 import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
-import { NodeWidgetComponent } from '../node-widget/node-widget.component';
+import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
+import { LinkMap } from '../../interfaces/link-map';
+import { Coords } from '../../interfaces/coords';
+import { PortCoords } from '../../interfaces/port-coords';
 
 export interface NodeCoords {
   entity: NodeModel;
@@ -33,8 +36,14 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   private selectedEntityId: string = null;
   private entityCoords: NodeCoords = null;
 
+  nodesRendered = false;
+  portCoords: PortCoords = {};
+
   @Input()
   nodes: NodeMap = {};
+
+  @Input()
+  links: LinkMap = {};
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
@@ -110,8 +119,27 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.entityCoords = null;
   }
 
-  nodesRenderedHandler(nodeWidgets: QueryList<NodeWidgetComponent>): void {
-    console.log(nodeWidgets);
+  nodesRenderedHandler(nodeWidgets: QueryList<SpecificNodeWidget>): void {
+    this.nodesRendered = true;
+
+    const coords: PortCoords = nodeWidgets.reduce((acc, nodeWidget) => {
+      const nodeOffsetLeft = nodeWidget.nodeModel.x;
+      const nodeOffsetTop = nodeWidget.nodeModel.y;
+
+      const ports: PortCoords = nodeWidget.portWidgets.reduce((acc, portWidget) => {
+        const offsetLeft = (portWidget.instance.positionedContainer.nativeElement as any).offsetLeft;
+        const offsetTop = (portWidget.instance.positionedContainer.nativeElement as any).offsetTop;
+
+        acc[portWidget.portModel.id] = { x: nodeOffsetLeft + offsetLeft, y: nodeOffsetTop + offsetTop };
+        return acc;
+      }, {});
+
+      return { ...acc, ...ports };
+    }, {});
+
+    this.portCoords = coords;
+    console.log(coords);
+    this.ref.detectChanges();
   }
 
   ngOnDestroy(): void {

@@ -4,4 +4,22 @@
                      [selected]="item.key === selectedId"
                      (onNodeClicked)="onMouseDownHandler($event)"></ngx-node-widget>
   </ng-container>
+
+  <ng-container *ngIf="showLinks">
+    <svg>
+      <ng-container *ngFor="let item of links | keyvalue; trackBy: trackByFn">
+        <svg:line [attr.x1]="portCoords[item.value.source?.id]?.x"
+                  [attr.y1]="portCoords[item.value.source?.id]?.y"
+                  [attr.x2]="portCoords[item.value.target?.id]?.x"
+                  [attr.y2]="portCoords[item.value.target?.id]?.y"
+                  stroke="violet"
+                  stroke-width="5"
+        ></svg:line>
+        <!--<ngx-link-widget [linkModel]="item.value"
+                         [source]="portCoords[item.value.source?.id]"
+                         [target]="portCoords[item.value.target?.id]">
+        </ngx-link-widget>-->
+      </ng-container>
+    </svg>
+  </ng-container>
 </div>

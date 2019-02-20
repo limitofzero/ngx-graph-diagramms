@@ -1,3 +1,3 @@
 export interface LinkMap {
-  [s: number]: LinkMap;
+  [s: string]: LinkMap;
 }
