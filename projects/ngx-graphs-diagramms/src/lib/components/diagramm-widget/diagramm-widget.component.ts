@@ -4,7 +4,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnDestroy,
+  OnDestroy, QueryList,
   ViewChild
 } from '@angular/core';
 import { NodeModel } from '../../models/node.model';
@@ -13,6 +13,7 @@ import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
 import { NodeMap } from '../../interfaces/node-map';
 import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
+import { NodeWidgetComponent } from '../node-widget/node-widget.component';
 
 export interface NodeCoords {
   entity: NodeModel;
@@ -29,7 +30,7 @@ export interface NodeCoords {
 export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
-  private selectedEntityId: number = null;
+  private selectedEntityId: string = null;
   private entityCoords: NodeCoords = null;
 
   @Input()
@@ -66,6 +67,14 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.initListeningMouseUp();
   }
 
+  private initListeningMouseUp(): void {
+    fromEvent(this.diagramWidget.nativeElement, 'mouseup').pipe(
+      takeUntil(this.onDestroy)
+    ).subscribe({
+      next: () => this.resetClickedEntityId()
+    });
+  }
+
   private initListeningMouseMoveEvent(): void {
     fromEvent(this.diagramWidget.nativeElement, 'mousemove').pipe(
       takeUntil(this.onDestroy),
@@ -97,20 +106,15 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.ref.markForCheck();
   }
 
-  private initListeningMouseUp(): void {
-    fromEvent(this.diagramWidget.nativeElement, 'mouseup').pipe(
-      takeUntil(this.onDestroy)
-    ).subscribe({
-      next: () => this.resetClickedEntityId()
-    });
-  }
-
   private resetClickedEntityId(): void {
     this.entityCoords = null;
   }
 
+  nodesRenderedHandler(nodeWidgets: QueryList<NodeWidgetComponent>): void {
+    console.log(nodeWidgets);
+  }
+
   ngOnDestroy(): void {
-    console.log('td')
     this.onDestroy.complete();
   }
 }

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -12,6 +13,7 @@ import { NodeWidgetComponent } from '../node-widget/node-widget.component';
 import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
 import { KeyValue } from '@angular/common';
 import { NodeModel } from '../../models/node.model';
+import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -19,7 +21,7 @@ import { NodeModel } from '../../models/node.model';
   styleUrls: ['./node-layer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NodeLayerComponent {
+export class NodeLayerComponent implements AfterViewInit {
   @Input()
   nodes: NodeMap = {};
 
@@ -29,7 +31,10 @@ export class NodeLayerComponent {
   @Output()
   nodeClicked = new EventEmitter<NodeClickedEvent>();
 
-  @ViewChildren(NodeWidgetComponent) nodeWidget: QueryList<NodeWidgetComponent>;
+  @Output()
+  nodesRendered = new EventEmitter<QueryList<NodeWidgetComponent>>();
+
+  @ViewChildren(NodeWidgetComponent) widgets: QueryList<NodeWidgetComponent>;
 
   onMouseDownHandler(event: NodeClickedEvent): void {
     this.nodeClicked.emit(event);
@@ -37,5 +42,9 @@ export class NodeLayerComponent {
 
   trackByFn(item: KeyValue<number, NodeModel>): number {
     return item.key;
+  }
+
+  ngAfterViewInit(): void {
+    this.nodesRendered.emit(this.widgets);
   }
 }

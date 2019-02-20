@@ -7,7 +7,7 @@ export class NodeModel extends BaseModel {
 
   ports: { [s: string]: PortModel } = {};
 
-  constructor(id?: number) {
+  constructor(id?: string) {
     super(id);
   }
 

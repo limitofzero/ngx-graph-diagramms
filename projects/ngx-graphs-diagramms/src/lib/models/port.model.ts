@@ -1,12 +1,11 @@
 import { BaseModel } from './base.model';
-import { LinkMap } from '../interfaces/link-map';
 
 export class PortModel extends BaseModel {
   x: number;
   y: number;
-  links: LinkMap = {};
+  links: Set<number> = new Set<number>();
 
-  constructor(id?: number) {
+  constructor(id?: string) {
     super(id);
   }
 

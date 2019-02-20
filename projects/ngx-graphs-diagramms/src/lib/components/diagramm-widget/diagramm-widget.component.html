@@ -1,5 +1,6 @@
 <div class="diagramm" #diagramWidget>
   <ngx-node-layer [nodes]="nodes"
                   [selectedId]="selectedEntityId"
+                  (nodesRendered)="nodesRenderedHandler($event)"
                   (nodeClicked)="onNodeClicked($event)"></ngx-node-layer>
 </div>

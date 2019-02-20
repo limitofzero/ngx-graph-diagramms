@@ -1,6 +1,6 @@
-import { NodeWidget } from './node-widget';
+import { SpecificNodeWidget } from './specific-node-widget';
 
 export interface NodeClickedEvent {
-  widget: NodeWidget;
+  widget: SpecificNodeWidget;
   event: MouseEvent;
 }

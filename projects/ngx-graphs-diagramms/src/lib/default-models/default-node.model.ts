@@ -3,7 +3,7 @@ import { NodeModel } from '../models/node.model';
 export class DefaultNodeModel extends NodeModel {
   description: string;
 
-  constructor(id?: number) {
+  constructor(id?: string) {
     super(id);
   }
 

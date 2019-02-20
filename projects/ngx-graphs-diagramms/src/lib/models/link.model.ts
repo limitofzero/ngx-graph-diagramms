@@ -5,7 +5,7 @@ export class LinkModel extends BaseModel {
   source: PortModel | null;
   target: PortModel | null;
 
-  constructor(id?: number) {
+  constructor(id?: string) {
     super(id);
   }
 
