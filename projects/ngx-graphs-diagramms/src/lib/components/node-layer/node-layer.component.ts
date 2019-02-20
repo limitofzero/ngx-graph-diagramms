@@ -32,7 +32,7 @@ export class NodeLayerComponent implements AfterViewInit {
   nodeClicked = new EventEmitter<NodeClickedEvent>();
 
   @Output()
-  nodesRendered = new EventEmitter<QueryList<NodeWidgetComponent>>();
+  nodesRendered = new EventEmitter<SpecificNodeWidget[]>();
 
   @ViewChildren(NodeWidgetComponent) widgets: QueryList<NodeWidgetComponent>;
 
@@ -45,6 +45,7 @@ export class NodeLayerComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.nodesRendered.emit(this.widgets);
+    const specificWidgets = this.widgets.map(widget => widget.instance);
+    this.nodesRendered.emit(specificWidgets);
   }
 }

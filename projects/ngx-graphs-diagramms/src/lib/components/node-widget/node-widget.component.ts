@@ -18,7 +18,7 @@ import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodeWidgetComponent implements OnInit, OnChanges {
-  private widgetInstance: DefaultNodeWidgetComponent;
+  public instance: DefaultNodeWidgetComponent;
 
   @Input()
   selected = false;
@@ -35,22 +35,22 @@ export class NodeWidgetComponent implements OnInit, OnChanges {
   constructor(private widgetFactory: WidgetFactoryService) {}
 
   mouseDownHandler(event: MouseEvent): void {
-    const clickedEvent = { widget: this.widgetInstance, event };
+    const clickedEvent = { widget: this.instance, event };
     this.onNodeClicked.emit(clickedEvent);
   }
 
   ngOnInit(): void {
     const factory = this.widgetFactory.getNodeWidgetFactory();
     const component = this.nodeWidget.createComponent(factory);
-    this.widgetInstance = component.instance;
-    this.widgetInstance.nodeModel = this.nodeModel;
-    this.widgetInstance.selected = this.selected;
+    this.instance = component.instance;
+    this.instance.nodeModel = this.nodeModel;
+    this.instance.selected = this.selected;
   }
 
   ngOnChanges(): void {
-    if (this.widgetInstance) {
-      this.widgetInstance.nodeModel = this.nodeModel;
-      this.widgetInstance.selected = this.selected;
+    if (this.instance) {
+      this.instance.nodeModel = this.nodeModel;
+      this.instance.selected = this.selected;
     }
   }
 }
