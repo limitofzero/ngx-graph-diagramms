@@ -18,7 +18,7 @@ import { LinkModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/li
 import { LinkWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/link-widget/link-widget.component';
 
 storiesOf('Diagramm widget', module).add('widget', () => {
-  const nodes = [ new DefaultNodeModel(), new DefaultNodeModel() ];
+  const nodes = [ new DefaultNodeModel(), new DefaultNodeModel(), new DefaultNodeModel() ];
   nodes[0].x = 200;
   nodes[0].y = 100;
   nodes[0].description = 'node1';
@@ -26,11 +26,15 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   nodes[1].x = 10;
   nodes[1].description = 'node2';
 
+  nodes[2].x = 600;
+  nodes[2].y = 400;
+  nodes[2].description = 'node3';
+
   const ports = [
     new DefaultPortModel(),
     new DefaultPortModel(),
     new DefaultPortModel(),
-    new DefaultPortModel()
+    new DefaultPortModel(),
   ];
   ports[0].positionClass = 'left-center';
   ports[1].positionClass = 'right-center';

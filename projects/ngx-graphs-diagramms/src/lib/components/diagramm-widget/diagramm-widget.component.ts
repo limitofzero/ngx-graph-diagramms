@@ -112,7 +112,23 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.entityCoords.entity = updatedEntity;
     this.entityCoords.startY = pageY;
     this.entityCoords.startX = pageX;
+    this.updatePorts(entity, diffX, diffY);
     this.ref.markForCheck();
+  }
+
+  private updatePorts(node: NodeModel, diffX, diffY): void {
+    const portsId = Object.keys(node.ports);
+    for (const id of portsId) {
+      const port = this.portCoords[id];
+      if (port) {
+        const x = port.x + diffX;
+        const y = port.y + diffY;
+
+        this.portCoords[id] = { x, y };
+      }
+    }
+
+    this.portCoords = { ...this.portCoords };
   }
 
   private resetClickedEntityId(): void {

@@ -31,4 +31,10 @@
       transparent 77%,
       transparent);
   background-size:50px 50px;
+
+  ngx-node-layer {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
