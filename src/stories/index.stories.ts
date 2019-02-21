@@ -16,6 +16,8 @@ import { DefaultNodeModel } from '../../projects/ngx-graphs-diagramms/src/lib/de
 import { DefaultPortModel } from '../../projects/ngx-graphs-diagramms/src/lib/default-models/default-port.model';
 import { LinkModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/link.model';
 import { LinkWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/link-widget/link-widget.component';
+import { PointWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/point-widget/point-widget.component';
+import { PointModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/point.model';
 
 storiesOf('Diagramm widget', module).add('widget', () => {
   const nodes = [ new DefaultNodeModel(), new DefaultNodeModel(), new DefaultNodeModel() ];
@@ -68,6 +70,12 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   link2.source = ports[1];
   link2.target = ports[3];
 
+  const point1 = new PointModel();
+  point1.x = 400;
+  point1.y = 20;
+  const pointMap = { [point1.id]: point1 };
+
+  link.points.push(point1.id);
   const links = {
     [link.id]: link,
     [link2.id]: link2
@@ -89,6 +97,7 @@ storiesOf('Diagramm widget', module).add('widget', () => {
     component: DiagrammWidgetComponent,
     props: {
       nodes: nodeMap,
+      points: pointMap,
       links
     },
     moduleMetadata: {
@@ -99,6 +108,7 @@ storiesOf('Diagramm widget', module).add('widget', () => {
         NodeLayerComponent,
         PortWidgetComponent,
         LinkWidgetComponent,
+        PointWidgetComponent
       ],
       entryComponents: [
         DefaultNodeWidgetComponent,

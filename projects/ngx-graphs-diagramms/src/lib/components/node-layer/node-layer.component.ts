@@ -16,6 +16,7 @@ import { NodeModel } from '../../models/node.model';
 import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
 import { LinkMap } from '../../interfaces/link-map';
 import { PortCoords } from '../../interfaces/port-coords';
+import { PointMap } from '../../interfaces/point-map';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -35,6 +36,9 @@ export class NodeLayerComponent implements AfterViewInit {
 
   @Input()
   links: LinkMap = {};
+
+  @Input()
+  points: PointMap = {};
 
   @Input()
   portCoords: PortCoords = {};

@@ -17,6 +17,7 @@ import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
 import { LinkMap } from '../../interfaces/link-map';
 import { Coords } from '../../interfaces/coords';
 import { PortCoords } from '../../interfaces/port-coords';
+import { PointMap } from '../../interfaces/point-map';
 
 export interface NodeCoords {
   entity: NodeModel;
@@ -44,6 +45,9 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   links: LinkMap = {};
+
+  @Input()
+  points: PointMap = {};
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
