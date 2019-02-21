@@ -18,6 +18,7 @@ import { LinkModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/li
 import { LinkWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/link-widget/link-widget.component';
 import { PointWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/point-widget/point-widget.component';
 import { PointModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/point.model';
+import { LinkToCoordsPipe } from '../../projects/ngx-graphs-diagramms/src/lib/pipes/link-to-coords.pipe';
 
 storiesOf('Diagramm widget', module).add('widget', () => {
   const nodes = [ new DefaultNodeModel(), new DefaultNodeModel(), new DefaultNodeModel() ];
@@ -108,7 +109,8 @@ storiesOf('Diagramm widget', module).add('widget', () => {
         NodeLayerComponent,
         PortWidgetComponent,
         LinkWidgetComponent,
-        PointWidgetComponent
+        PointWidgetComponent,
+        LinkToCoordsPipe
       ],
       entryComponents: [
         DefaultNodeWidgetComponent,

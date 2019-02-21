@@ -7,6 +7,7 @@ import { PortWidgetComponent } from './components/port-widget/port-widget.compon
 import { DefaultPortWidgetComponent } from './components/default-widgets/default-port-widget/default-port-widget.component';
 import { LinkWidgetComponent } from './components/link-widget/link-widget.component';
 import { PointWidgetComponent } from './components/point-widget/point-widget.component';
+import { LinkToCoordsPipe } from './pipes/link-to-coords.pipe';
 
 // todo вынести все дефолтные компоненты в отдельный модуль
 @NgModule({
@@ -18,7 +19,8 @@ import { PointWidgetComponent } from './components/point-widget/point-widget.com
     PortWidgetComponent,
     DefaultPortWidgetComponent,
     LinkWidgetComponent,
-    PointWidgetComponent
+    PointWidgetComponent,
+    LinkToCoordsPipe
   ],
   imports: [],
   exports: [DiagrammWidgetComponent]

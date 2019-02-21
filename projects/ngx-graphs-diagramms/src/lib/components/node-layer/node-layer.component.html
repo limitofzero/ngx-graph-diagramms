@@ -11,14 +11,17 @@
 
   <ng-container *ngIf="showLinks">
     <svg width="100%" height="100%">
-      <ng-container *ngFor="let item of links | keyvalue; trackBy: trackByFn">
-        <svg:line [attr.x1]="portCoords[item.value.source?.id]?.x"
-                  [attr.y1]="portCoords[item.value.source?.id]?.y"
-                  [attr.x2]="portCoords[item.value.target?.id]?.x"
-                  [attr.y2]="portCoords[item.value.target?.id]?.y"
-                  stroke="rgb(0,192,255)"
-                  stroke-width="2"
-        ></svg:line>
+      <ng-container *ngFor="let link of links | keyvalue; trackBy: trackByFn">
+        <ng-container *ngFor="let coords of link.value | linkToCoords:portCoords:points">
+          <line [attr.x1]="coords.x1"
+                [attr.y1]="coords.y1"
+                [attr.x2]="coords.x2"
+                [attr.y2]="coords.y2"
+                stroke="rgb(0,192,255)"
+                stroke-width="2"
+          ></line>
+        </ng-container>
+
       </ng-container>
     </svg>
   </ng-container>

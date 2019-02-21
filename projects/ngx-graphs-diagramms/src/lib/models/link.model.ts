@@ -18,4 +18,16 @@ export class LinkModel extends BaseModel {
 
     return cloned;
   }
+
+  isValid(): boolean {
+    if (!this.source) {
+      return false;
+    }
+
+    return this.hasFewPoints();
+  }
+
+  private hasFewPoints(): boolean {
+    return this.points.length > 0 || !!this.target;
+  }
 }
