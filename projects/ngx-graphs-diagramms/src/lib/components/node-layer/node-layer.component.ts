@@ -70,6 +70,10 @@ export class NodeLayerComponent implements AfterViewInit {
     return item.key;
   }
 
+  trackByIndexFn(index: number, item: any): number {
+    return index;
+  }
+
   ngAfterViewInit(): void {
     const specificWidgets = this.widgets.map(widget => widget.instance);
     this.nodesRendered.emit(specificWidgets);
