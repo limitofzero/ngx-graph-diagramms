@@ -9,7 +9,7 @@ import {
 import { WidgetFactoryService } from '../../services/widget-factory/widget-factory.service';
 import { NodeModel } from '../../models/node.model';
 import { DefaultNodeWidgetComponent } from '../default-widgets/default-node-widget/default-node-widget.component';
-import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
+import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
 
 @Component({
   selector: 'ngx-node-widget',
@@ -30,12 +30,12 @@ export class NodeWidgetComponent implements OnInit, OnChanges {
   nodeWidget: ViewContainerRef;
 
   @Output()
-  onNodeClicked = new EventEmitter<NodeClickedEvent>();
+  onNodeClicked = new EventEmitter<DraggableEntityClicked>();
 
   constructor(private widgetFactory: WidgetFactoryService) {}
 
   mouseDownHandler(event: MouseEvent): void {
-    const clickedEvent = { widget: this.instance, event };
+    const clickedEvent = { entity: this.nodeModel, event };
     this.onNodeClicked.emit(clickedEvent);
   }
 

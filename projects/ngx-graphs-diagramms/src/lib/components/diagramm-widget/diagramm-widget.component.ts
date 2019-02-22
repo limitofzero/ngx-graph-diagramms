@@ -12,7 +12,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, findIndex, takeUntil } from 'rxjs/operators';
 import { NodeMap } from '../../interfaces/node-map';
-import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
+import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
 import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
 import { LinkMap } from '../../interfaces/link-map';
 import { Coords } from '../../interfaces/coords';
@@ -24,7 +24,7 @@ import { LinkCoords } from '../../pipes/link-to-coords.pipe';
 import { LinkModel } from '../../models/link.model';
 import { BaseModel } from '../../models/base.model';
 
-export interface NodeCoords {
+export interface DraggableEntity {
   entity: BaseModel;
   startX: number;
   startY: number;
@@ -40,7 +40,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
   private selectedEntityId: string = null;
-  private entityCoords: NodeCoords = null;
+  private entityCoords: DraggableEntity = null;
 
   nodesRendered = false;
   portCoords: PortCoords = {};
@@ -98,17 +98,16 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     return l.x === r.x && l.y === r.y;
   }
 
-  onNodeClicked(entityEvent: NodeClickedEvent): void {
-    const { widget, event } = entityEvent;
+  onNodeClicked(entityEvent: DraggableEntityClicked): void {
+    const { entity, event } = entityEvent;
 
-    if (widget) {
-      const { nodeModel } = widget;
-      this.selectedEntityId = nodeModel.id;
-      this.setNodePosition(nodeModel, event);
+    if (entity) {
+      this.selectedEntityId = entity.id;
+      this.setModelPosition(entity, event);
     }
   }
 
-  setNodePosition(entity: NodeModel, event: MouseEvent): void {
+  setModelPosition(entity: BaseModel, event: MouseEvent): void {
     const { pageX, pageY } = event;
     const startX = pageX;
     const startY = pageY;

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { NodeMap } from '../../interfaces/node-map';
 import { NodeWidgetComponent } from '../node-widget/node-widget.component';
-import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
+import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
 import { KeyValue } from '@angular/common';
 import { NodeModel } from '../../models/node.model';
 import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
@@ -47,7 +47,7 @@ export class NodeLayerComponent implements AfterViewInit {
   portCoords: PortCoords = {};
 
   @Output()
-  nodeClicked = new EventEmitter<NodeClickedEvent>();
+  nodeClicked = new EventEmitter<DraggableEntityClicked>();
 
   @Output()
   linkClicked = new EventEmitter<LinkClickedEvent>();
@@ -57,7 +57,7 @@ export class NodeLayerComponent implements AfterViewInit {
 
   @ViewChildren(NodeWidgetComponent) widgets: QueryList<NodeWidgetComponent>;
 
-  onNodeMouseDownHandler(event: NodeClickedEvent): void {
+  onNodeMouseDownHandler(event: DraggableEntityClicked): void {
     this.nodeClicked.emit(event);
   }
 
