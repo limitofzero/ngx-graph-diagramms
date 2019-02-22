@@ -70,6 +70,8 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     const index = this.getPointIndex(link, range);
     link.addPoint(point.id, index);
     this.points = { ...this.points, [point.id]: point };
+
+    this.setModelPosition(point, event);
     this.ref.markForCheck();
   }
 
