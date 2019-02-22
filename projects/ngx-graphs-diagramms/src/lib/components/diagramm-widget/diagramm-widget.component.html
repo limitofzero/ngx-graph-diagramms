@@ -5,6 +5,7 @@
                   [links]="links"
                   [points]="points"
                   [portCoords]="portCoords"
+                  (linkClicked)="onLinkClicked($event)"
                   (nodesRendered)="nodesRenderedHandler($event)"
                   (nodeClicked)="onNodeClicked($event)">
   </ngx-node-layer>

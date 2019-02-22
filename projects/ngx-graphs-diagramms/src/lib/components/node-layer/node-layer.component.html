@@ -2,7 +2,7 @@
   <ng-container *ngFor="let item of nodes | keyvalue; trackBy: trackByFn">
     <ngx-node-widget [nodeModel]="item.value"
                      [selected]="item.key === selectedId"
-                     (onNodeClicked)="onMouseDownHandler($event)"></ngx-node-widget>
+                     (onNodeClicked)="onNodeMouseDownHandler($event)"></ngx-node-widget>
   </ng-container>
 
   <ng-container *ngFor="let item of points | keyvalue; trackBy: trackByFn">
@@ -18,7 +18,8 @@
                 [attr.x2]="coords.x2"
                 [attr.y2]="coords.y2"
                 stroke="rgb(0,192,255)"
-                stroke-width="2"
+                stroke-width="1"
+                (mousedown)="onLinkMouseDownHandler(link.value, coords, $event)"
           ></line>
         </ng-container>
 

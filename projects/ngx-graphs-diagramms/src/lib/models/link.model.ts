@@ -10,6 +10,13 @@ export class LinkModel extends BaseModel {
     super(id);
   }
 
+  addPoint(pointId: string, index: number): void {
+    const points = this.points;
+    this.points = points.slice(0, index)
+      .concat(pointId)
+      .concat(points.slice(index, points.length));
+  }
+
   clone(): LinkModel {
     const cloned = new LinkModel(this.id);
     cloned.source = this.source;

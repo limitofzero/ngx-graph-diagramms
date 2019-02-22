@@ -17,6 +17,9 @@ import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
 import { LinkMap } from '../../interfaces/link-map';
 import { PortCoords } from '../../interfaces/port-coords';
 import { PointMap } from '../../interfaces/point-map';
+import { LinkModel } from '../../models/link.model';
+import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
+import { LinkCoords } from '../../pipes/link-to-coords.pipe';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -47,12 +50,20 @@ export class NodeLayerComponent implements AfterViewInit {
   nodeClicked = new EventEmitter<NodeClickedEvent>();
 
   @Output()
+  linkClicked = new EventEmitter<LinkClickedEvent>();
+
+  @Output()
   nodesRendered = new EventEmitter<SpecificNodeWidget[]>();
 
   @ViewChildren(NodeWidgetComponent) widgets: QueryList<NodeWidgetComponent>;
 
-  onMouseDownHandler(event: NodeClickedEvent): void {
+  onNodeMouseDownHandler(event: NodeClickedEvent): void {
     this.nodeClicked.emit(event);
+  }
+
+  onLinkMouseDownHandler(link: LinkModel, coords: LinkCoords, event: MouseEvent): void {
+    console.log(event);
+    this.linkClicked.emit({ link, event, range: coords });
   }
 
   trackByFn(item: KeyValue<number, NodeModel>): number {

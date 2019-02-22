@@ -10,7 +10,7 @@ import {
 import { NodeModel } from '../../models/node.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, findIndex, takeUntil } from 'rxjs/operators';
 import { NodeMap } from '../../interfaces/node-map';
 import { NodeClickedEvent } from '../../interfaces/node-clicked-event';
 import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
@@ -18,6 +18,10 @@ import { LinkMap } from '../../interfaces/link-map';
 import { Coords } from '../../interfaces/coords';
 import { PortCoords } from '../../interfaces/port-coords';
 import { PointMap } from '../../interfaces/point-map';
+import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
+import { PointModel } from '../../models/point.model';
+import { LinkCoords } from '../../pipes/link-to-coords.pipe';
+import { LinkModel } from '../../models/link.model';
 
 export interface NodeCoords {
   entity: NodeModel;
@@ -52,6 +56,46 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
   constructor(private ref: ChangeDetectorRef) {}
+
+  onLinkClicked(clickEvent: LinkClickedEvent): void {
+    const { link, event, range } = clickEvent;
+    const { pageX, pageY } = event;
+
+    const point = new PointModel();
+    const offsets = this.getDiagrammOffsets();
+    point.x = pageX - offsets.offsetLeft;
+    point.y = pageY - offsets.offsetTop;
+
+    const index = this.getPointIndex(link, range);
+    link.addPoint(point.id, index);
+    this.points = { ...this.points, [point.id]: point };
+    this.ref.markForCheck();
+  }
+
+  private getPointIndex(link: LinkModel, range: LinkCoords): number {
+    const { source } = link;
+    const sourceCoords = this.portCoords[source.id];
+    const pointCoords = link.points
+      .map(id => this.points[id])
+      .map(point => ({ x: point.x, y: point.y }));
+
+    const leftRangeCoords = { x: range.x1, y: range.y1 };
+    const leftRangeIndex = [ sourceCoords ].concat(pointCoords)
+      .findIndex(coords => this.isEqualCoords(coords, leftRangeCoords));
+
+    return leftRangeIndex;
+  }
+
+  private getDiagrammOffsets(): { offsetLeft: number; offsetTop: number } {
+    const nativeElement = this.diagramWidget.nativeElement;
+    const { offsetLeft, offsetTop } = nativeElement;
+    return { offsetLeft, offsetTop };
+  }
+
+  // todo создать сущность coords и методы для нее
+  private isEqualCoords(l: Coords, r: Coords): boolean {
+    return l.x === r.x && l.y === r.y;
+  }
 
   onNodeClicked(entityEvent: NodeClickedEvent): void {
     const { widget, event } = entityEvent;
@@ -161,6 +205,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     console.log(coords);
     this.ref.detectChanges();
   }
+
 
   ngOnDestroy(): void {
     this.onDestroy.complete();
