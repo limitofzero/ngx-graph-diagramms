@@ -98,7 +98,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     return l.x === r.x && l.y === r.y;
   }
 
-  onNodeClicked(entityEvent: DraggableEntityClicked): void {
+  onDraggableEntityClickedHandler(entityEvent: DraggableEntityClicked): void {
     const { entity, event } = entityEvent;
 
     if (entity) {
@@ -145,8 +145,33 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     const { entity } = this.entityCoords;
     if (entity instanceof NodeModel) {
       this.MoveNode(entity as NodeModel, event);
+    } else if (entity instanceof PointModel) {
+      this.MovePoint(entity as PointModel, event);
     }
   }
+
+  private MovePoint(pointModel: PointModel, event: MouseEvent): void {
+    const { pageX, pageY } = event;
+    const { startX, startY } = this.entityCoords;
+
+    const diffX = (pageX - startX);
+    const diffY = (pageY - startY);
+
+    const x = pointModel.x + diffX;
+    const y = pointModel.y + diffY;
+
+    const updatedEntity = pointModel.clone();
+    updatedEntity.x = x;
+    updatedEntity.y = y;
+
+    this.points = { ... this.points };
+    this.points[updatedEntity.id] = updatedEntity;
+    this.entityCoords.entity = updatedEntity;
+    this.entityCoords.startY = pageY;
+    this.entityCoords.startX = pageX;
+    this.ref.markForCheck();
+  }
+
   private MoveNode(nodeModel: NodeModel, event: MouseEvent): void {
     const { pageX, pageY } = event;
     const { startX, startY } = this.entityCoords;

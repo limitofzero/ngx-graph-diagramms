@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PointModel } from '../../models/point.model';
+import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
 
 @Component({
   selector: 'ngx-point-widget',
@@ -9,4 +10,11 @@ import { PointModel } from '../../models/point.model';
 export class PointWidgetComponent {
   @Input()
   pointModel: PointModel = null;
+
+  @Output()
+  portClicked = new EventEmitter<DraggableEntityClicked>();
+
+  onMouseDownHandler(event: MouseEvent): void {
+    this.portClicked.emit({ entity: this.pointModel, event });
+  }
 }

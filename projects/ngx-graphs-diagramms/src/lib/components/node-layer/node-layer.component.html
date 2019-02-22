@@ -2,11 +2,13 @@
   <ng-container *ngFor="let item of nodes | keyvalue; trackBy: trackByFn">
     <ngx-node-widget [nodeModel]="item.value"
                      [selected]="item.key === selectedId"
-                     (onNodeClicked)="onNodeMouseDownHandler($event)"></ngx-node-widget>
+                     (onNodeClicked)="onDraggableEntityClickedHandler($event)"></ngx-node-widget>
   </ng-container>
 
   <ng-container *ngFor="let item of points | keyvalue; trackBy: trackByFn">
-    <ngx-point-widget [pointModel]="item.value"></ngx-point-widget>
+    <ngx-point-widget [pointModel]="item.value"
+                      (portClicked)="onDraggableEntityClickedHandler($event)">
+    </ngx-point-widget>
   </ng-container>
 
   <ng-container *ngIf="showLinks">

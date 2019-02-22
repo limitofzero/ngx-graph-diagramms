@@ -1,4 +1,5 @@
 <div class="point"
      [style.top]="pointModel?.y + 'px'"
-     [style.left]="pointModel?.x + 'px'">
+     [style.left]="pointModel?.x + 'px'"
+     (mousedown)="onMouseDownHandler($event)">
 </div>

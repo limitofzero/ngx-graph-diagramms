@@ -47,7 +47,7 @@ export class NodeLayerComponent implements AfterViewInit {
   portCoords: PortCoords = {};
 
   @Output()
-  nodeClicked = new EventEmitter<DraggableEntityClicked>();
+  draggableEntityClicked = new EventEmitter<DraggableEntityClicked>();
 
   @Output()
   linkClicked = new EventEmitter<LinkClickedEvent>();
@@ -57,8 +57,8 @@ export class NodeLayerComponent implements AfterViewInit {
 
   @ViewChildren(NodeWidgetComponent) widgets: QueryList<NodeWidgetComponent>;
 
-  onNodeMouseDownHandler(event: DraggableEntityClicked): void {
-    this.nodeClicked.emit(event);
+  onDraggableEntityClickedHandler(event: DraggableEntityClicked): void {
+    this.draggableEntityClicked.emit(event);
   }
 
   onLinkMouseDownHandler(link: LinkModel, coords: LinkCoords, event: MouseEvent): void {
