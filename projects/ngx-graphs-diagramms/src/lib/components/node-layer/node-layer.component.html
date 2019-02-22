@@ -14,17 +14,18 @@
   <ng-container *ngIf="showLinks">
     <svg width="100%" height="100%">
       <ng-container *ngFor="let link of links | keyvalue; trackBy: trackByFn">
-        <ng-container *ngFor="let coords of link.value | linkToCoords:portCoords:points; trackBy: trackByIndexFn">
-          <line [attr.x1]="coords.x1"
-                [attr.y1]="coords.y1"
-                [attr.x2]="coords.x2"
-                [attr.y2]="coords.y2"
-                stroke="rgb(0,192,255)"
-                stroke-width="3"
-                (mousedown)="onLinkMouseDownHandler(link.value, coords, $event)"
-          ></line>
-        </ng-container>
-
+        <g class="selectable-link">
+          <ng-container *ngFor="let coords of link.value | linkToCoords:portCoords:points; trackBy: trackByIndexFn">
+            <line [attr.x1]="coords.x1"
+                  [attr.y1]="coords.y1"
+                  [attr.x2]="coords.x2"
+                  [attr.y2]="coords.y2"
+                  stroke="rgb(0,192,255)"
+                  stroke-width="3"
+                  (mousedown)="onLinkMouseDownHandler(link.value, coords, $event)"
+            ></line>
+          </ng-container>
+        </g>
       </ng-container>
     </svg>
   </ng-container>

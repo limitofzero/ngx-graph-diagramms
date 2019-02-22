@@ -10,7 +10,7 @@ import {
 import { NodeModel } from '../../models/node.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
-import { filter, findIndex, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { NodeMap } from '../../interfaces/node-map';
 import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
 import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
