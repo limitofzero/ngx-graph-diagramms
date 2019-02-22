@@ -22,9 +22,10 @@ import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
 import { PointModel } from '../../models/point.model';
 import { LinkCoords } from '../../pipes/link-to-coords.pipe';
 import { LinkModel } from '../../models/link.model';
+import { BaseModel } from '../../models/base.model';
 
 export interface NodeCoords {
-  entity: NodeModel;
+  entity: BaseModel;
   startX: number;
   startY: number;
 }
@@ -142,16 +143,22 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   private onMouseMoveHandler(event: MouseEvent): void {
+    const { entity } = this.entityCoords;
+    if (entity instanceof NodeModel) {
+      this.MoveNode(entity as NodeModel, event);
+    }
+  }
+  private MoveNode(nodeModel: NodeModel, event: MouseEvent): void {
     const { pageX, pageY } = event;
-    const { startX, startY, entity } = this.entityCoords;
+    const { startX, startY } = this.entityCoords;
 
     const diffX = (pageX - startX);
     const diffY = (pageY - startY);
 
-    const x = entity.x + diffX;
-    const y = entity.y + diffY;
+    const x = nodeModel.x + diffX;
+    const y = nodeModel.y + diffY;
 
-    const updatedEntity = (entity as NodeModel).clone();
+    const updatedEntity = nodeModel.clone();
     updatedEntity.x = x;
     updatedEntity.y = y;
 
@@ -160,7 +167,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.entityCoords.entity = updatedEntity;
     this.entityCoords.startY = pageY;
     this.entityCoords.startX = pageX;
-    this.updatePorts(entity, diffX, diffY);
+    this.updatePorts(nodeModel, diffX, diffY);
     this.ref.markForCheck();
   }
 
