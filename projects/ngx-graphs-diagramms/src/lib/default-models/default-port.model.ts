@@ -3,8 +3,9 @@ import { PortModel } from '../models/port.model';
 export class DefaultPortModel extends PortModel {
   positionClass: string;
 
-  constructor(id?: string) {
+  constructor(positionClass: string, id?: string) {
     super(id);
+    this.positionClass = positionClass;
   }
 
   clone(): PortModel {

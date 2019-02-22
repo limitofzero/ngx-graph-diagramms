@@ -12,4 +12,16 @@
     top: 50%;
     transform: translateY(-50%);
   }
+
+  &.bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
