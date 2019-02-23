@@ -15,13 +15,28 @@
     <svg width="100%" height="100%">
       <ng-container *ngFor="let link of links | keyvalue; trackBy: trackByFn">
         <g class="selectable-link">
-          <ng-container *ngFor="let coords of link.value | linkToCoords:portCoords:points; trackBy: trackByIndexFn">
+          <defs>
+            <marker [attr.id]="'node-marker'" markerWidth="10" markerHeight="7"
+                    fill="rgb(0,192,255)"
+                    refX="1.5" refY="1.5" orient="auto">
+              <polygon points="0 0, 2 1.5, 0 3" />
+            </marker>
+            <marker [attr.id]="'point-marker'" markerWidth="10" markerHeight="7"
+                    fill="rgb(0,192,255)"
+                    refX="3" refY="1.5" orient="auto">
+              <polygon points="0 0, 2 1.5, 0 3" />
+            </marker>
+          </defs>
+          <ng-container *ngFor="let coords of link.value | linkToCoords:portCoords:points;
+          let isLast = last;
+          trackBy: trackByIndexFn">
             <line [attr.x1]="coords.x1"
                   [attr.y1]="coords.y1"
                   [attr.x2]="coords.x2"
                   [attr.y2]="coords.y2"
                   stroke="rgb(0,192,255)"
                   stroke-width="3"
+                  [attr.marker-end]=" isLast ? 'url(#node-marker)' : 'url(#point-marker)'"
                   (mousedown)="onLinkMouseDownHandler(link.value, coords, $event)"
             ></line>
           </ng-container>
