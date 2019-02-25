@@ -52,10 +52,10 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   nodes[2].description = 'test3';
   nodes[2].ports = entityArrayToMap([ ports[3] ] );
 
-  links[0].source = ports[0];
-  links[0].target = ports[1];
-  links[1].source = ports[2];
-  links[1].target = ports[3];
+  links[0].sourceId = ports[0].id;
+  links[0].targetId = ports[1].id;
+  links[1].sourceId = ports[2].id;
+  links[1].targetId = ports[3].id;
 
   const nodeMap = entityArrayToMap(nodes);
   const portMap = entityArrayToMap(ports);

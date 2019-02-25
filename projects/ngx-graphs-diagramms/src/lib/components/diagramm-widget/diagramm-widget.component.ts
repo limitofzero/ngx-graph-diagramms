@@ -76,8 +76,8 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   private getPointIndex(link: LinkModel, range: LinkCoords): number {
-    const { source } = link;
-    const sourceCoords = this.portCoords[source.id];
+    const { sourceId } = link;
+    const sourceCoords = this.portCoords[sourceId];
     const pointCoords = link.points
       .map(id => this.points[id])
       .map(point => ({ x: point.x, y: point.y }));

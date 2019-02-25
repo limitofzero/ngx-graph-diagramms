@@ -29,17 +29,13 @@ export class LinkToCoordsPipe implements PipeTransform {
     return coords;
   }
 
-  private static getPortCoords(portCoords: PortCoords, port?: PortModel): Coords | null {
-    return port ? portCoords[port.id] : null;
-  }
-
   transform(link: LinkModel, ports: PortCoords = {}, points: PointMap = {}): LinkCoords[] {
     if (!link.isValid()) {
       return [];
     }
 
-    const source = LinkToCoordsPipe.getPortCoords(ports, link.source);
-    const target = LinkToCoordsPipe.getPortCoords(ports, link.target);
+    const source = ports[link.sourceId];
+    const target = ports[link.targetId];
     const pointModels = link.points.map(id => points[id]);
 
     const val = LinkToCoordsPipe.getCoords(source, target, pointModels).reduce((acc, coords, index, arr) => {

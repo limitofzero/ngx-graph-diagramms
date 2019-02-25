@@ -1,9 +1,8 @@
 import { BaseModel } from './base.model';
-import { PortModel } from './port.model';
 
 export class LinkModel extends BaseModel {
-  source: PortModel | null;
-  target: PortModel | null;
+  sourceId: string;
+  targetId: string;
   points: string[] = [];
 
   constructor(id?: string) {
@@ -19,15 +18,15 @@ export class LinkModel extends BaseModel {
 
   clone(): LinkModel {
     const cloned = new LinkModel(this.id);
-    cloned.source = this.source;
-    cloned.target = this.target;
+    cloned.sourceId = this.sourceId;
+    cloned.targetId = this.targetId;
     cloned.points = this.points;
 
     return cloned;
   }
 
   isValid(): boolean {
-    if (!this.source) {
+    if (!this.sourceId) {
       return false;
     }
 
@@ -35,6 +34,6 @@ export class LinkModel extends BaseModel {
   }
 
   private hasFewPoints(): boolean {
-    return this.points.length > 0 || !!this.target;
+    return this.points.length > 0 || !!this.targetId;
   }
 }
