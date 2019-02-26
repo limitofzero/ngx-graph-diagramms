@@ -9,9 +9,6 @@ export class DefaultNodeModel extends NodeModel {
   }
 
   clone(): DefaultNodeModel {
-    const cloned = new DefaultNodeModel(this);
-    cloned.description = this.description;
-
-    return cloned;
+    return new DefaultNodeModel(this);
   }
 }
