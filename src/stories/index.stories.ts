@@ -27,7 +27,7 @@ const entityArrayToMap = (arr: BaseModel[]) => arr.reduce((map, entity) => {
 }, {});
 
 storiesOf('Diagramm widget', module).add('widget', () => {
-  const nodeData = { type: 'defaultNode' };
+  const nodeData = { type: 'defaultNode', test: '' };
 
   const nodes = [
     new DefaultNodeModel(nodeData),
