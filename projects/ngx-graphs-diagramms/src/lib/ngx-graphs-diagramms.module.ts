@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { DiagrammWidgetComponent } from './components/diagramm-widget/diagramm-widget.component';
 import { NodeLayerComponent } from './components/node-layer/node-layer.component';
 import { DefaultNodeWidgetComponent } from './components/default-widgets/default-node-widget/default-node-widget.component';
@@ -8,6 +8,7 @@ import { DefaultPortWidgetComponent } from './components/default-widgets/default
 import { LinkWidgetComponent } from './components/link-widget/link-widget.component';
 import { PointWidgetComponent } from './components/point-widget/point-widget.component';
 import { LinkToCoordsPipe } from './pipes/link-to-coords.pipe';
+import { COMPONENT_MAP, WidgetFactoryService } from './services/widget-factory/widget-factory.service';
 
 // todo вынести все дефолтные компоненты в отдельный модуль
 @NgModule({
@@ -22,7 +23,33 @@ import { LinkToCoordsPipe } from './pipes/link-to-coords.pipe';
     PointWidgetComponent,
     LinkToCoordsPipe
   ],
-  imports: [],
+  entryComponents: [
+    DefaultNodeWidgetComponent,
+    DefaultPortWidgetComponent
+  ],
+  providers: [
+    WidgetFactoryService,
+  ],
   exports: [DiagrammWidgetComponent]
 })
-export class NgxGraphsDiagrammsModule { }
+export class NgxGraphsDiagrammsModule {
+  static forRoot(componentMap: { [s: string]: Type<any> }): ModuleWithProviders {
+    const componentTypes = Object.keys(componentMap)
+      .map(key => componentMap[key]);
+
+    return {
+      ngModule: NgxGraphsDiagrammsModule,
+      providers: [
+        {
+          provide: ANALYZE_FOR_ENTRY_COMPONENTS,
+          useValue: componentTypes,
+          multi: true,
+        },
+        {
+          provide: COMPONENT_MAP,
+          useValue: componentMap
+        }
+      ]
+    };
+  }
+}

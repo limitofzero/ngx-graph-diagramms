@@ -41,6 +41,7 @@ export class NodeWidgetComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const factory = this.widgetFactory.getNodeWidgetFactory();
+    console.log(factory);
     const component = this.nodeWidget.createComponent(factory);
     this.instance = component.instance;
     this.instance.nodeModel = this.nodeModel;

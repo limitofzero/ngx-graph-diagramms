@@ -19,6 +19,7 @@ import { PointWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/li
 import { LinkToCoordsPipe } from '../../projects/ngx-graphs-diagramms/src/lib/pipes/link-to-coords.pipe';
 import { LinkModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/link.model';
 import { BaseModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/base.model';
+import { NgxGraphsDiagrammsModule } from '../../projects/ngx-graphs-diagramms/src/lib/ngx-graphs-diagramms.module';
 
 const entityArrayToMap = (arr: BaseModel[]) => arr.reduce((map, entity) => {
   map[entity.id] = entity;
@@ -71,20 +72,20 @@ storiesOf('Diagramm widget', module).add('widget', () => {
     moduleMetadata: {
       declarations: [
         NodeWidgetComponent,
-        DefaultNodeWidgetComponent,
-        DefaultPortWidgetComponent,
         NodeLayerComponent,
         PortWidgetComponent,
         LinkWidgetComponent,
         PointWidgetComponent,
-        LinkToCoordsPipe
-      ],
-      entryComponents: [
+        LinkToCoordsPipe,
         DefaultNodeWidgetComponent,
         DefaultPortWidgetComponent
       ],
       providers: [
         WidgetFactoryService,
+        ...NgxGraphsDiagrammsModule.forRoot({
+          defaultNode: DefaultNodeWidgetComponent,
+          defaultPort: DefaultPortWidgetComponent
+        }).providers
       ]
     }
   };

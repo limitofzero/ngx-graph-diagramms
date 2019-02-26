@@ -4,6 +4,8 @@ import { PortModel } from './port.model';
 export class NodeModel extends BaseModel {
   x = 0;
   y = 0;
+  width: number;
+  height: number;
 
   ports: { [s: string]: PortModel } = {};
 
@@ -26,6 +28,12 @@ export class NodeModel extends BaseModel {
     cloned.y = y;
 
     return cloned;
+  }
+
+  setDimensionsAndClone(width: number, height: number): NodeModel {
+    this.height = height;
+    this.width = width;
+    return this.clone();
   }
 }
 

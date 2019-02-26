@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LinkModel } from '../models/link.model';
 import { PointMap } from '../interfaces/point-map';
 import { Coords } from '../interfaces/coords';
-import { PortModel } from '../models/port.model';
 import { PointModel } from '../models/point.model';
 import { PortCoords } from '../interfaces/port-coords';
 
