@@ -3,12 +3,12 @@ import { NodeModel } from '../models/node.model';
 export class DefaultNodeModel extends NodeModel {
   description: string;
 
-  constructor(id?: string) {
-    super(id);
+  constructor(data: { type: string, id?: string }) {
+    super(data);
   }
 
   clone(): DefaultNodeModel {
-    const cloned = new DefaultNodeModel(this.id);
+    const cloned = new DefaultNodeModel(this);
     cloned.x = this.x;
     cloned.y = this.y;
     cloned.ports = this.ports;

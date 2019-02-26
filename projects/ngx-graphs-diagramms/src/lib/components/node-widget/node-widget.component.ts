@@ -24,7 +24,7 @@ export class NodeWidgetComponent implements OnInit, OnChanges {
   selected = false;
 
   @Input()
-  nodeModel: NodeModel = new NodeModel();
+  nodeModel: NodeModel = null;
 
   @ViewChild('nodeWidget', { read: ViewContainerRef })
   nodeWidget: ViewContainerRef;

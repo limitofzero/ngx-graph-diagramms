@@ -4,17 +4,20 @@ import { PortModel } from './port.model';
 export class NodeModel extends BaseModel {
   x = 0;
   y = 0;
+  type: string;
   width: number;
   height: number;
 
   ports: { [s: string]: PortModel } = {};
 
-  constructor(id?: string) {
-    super(id);
+  constructor(data: { type: string, id?: string }) {
+    super(data.id);
+    this.type = data.type;
   }
 
   clone(): NodeModel {
-    const cloned = new NodeModel(this.id);
+    const { type, id } = this;
+    const cloned = new NodeModel({ type, id });
     cloned.x = this.x;
     cloned.y = this.y;
     cloned.ports = this.ports;
