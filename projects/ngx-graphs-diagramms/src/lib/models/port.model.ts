@@ -2,17 +2,16 @@ import { BaseModel } from './base.model';
 import { LinkModel } from './link.model';
 
 export class PortModel extends BaseModel {
-  links: Set<string> = new Set<string>();
+  links: Set<string>;
 
-  constructor(id?: string) {
-    super(id);
+  constructor(data: { id?: string, links?: Set<string> }) {
+    super(data.id);
+    const { links } = data;
+    this.links = links || new Set<string>();
   }
 
   clone(): PortModel {
-    const cloned = new PortModel(this.id);
-    cloned.links = this.links;
-
-    return cloned;
+    return new PortModel(this);
   }
 
   addLink(link: LinkModel): void {

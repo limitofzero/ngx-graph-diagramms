@@ -3,16 +3,13 @@ import { PortModel } from '../models/port.model';
 export class DefaultPortModel extends PortModel {
   positionClass: string;
 
-  constructor(positionClass: string, id?: string) {
-    super(id);
+  constructor(data: { positionClass: string, id?: string }) {
+    super(data);
+    const { positionClass } = data;
     this.positionClass = positionClass;
   }
 
-  clone(): PortModel {
-    const cloned = new DefaultPortModel(this.id);
-    cloned.links = this.links;
-    cloned.positionClass = this.positionClass;
-
-    return cloned;
+  clone(): DefaultPortModel {
+    return new DefaultPortModel(this);
   }
 }
