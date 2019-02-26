@@ -4,7 +4,7 @@ import { PortModel } from './port.model';
 export class NodeModel extends BaseModel {
   x = 0;
   y = 0;
-  type: string;
+  readonly type: string;
   width: number;
   height: number;
 
