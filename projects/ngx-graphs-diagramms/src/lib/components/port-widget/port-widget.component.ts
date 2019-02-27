@@ -24,7 +24,7 @@ export class PortWidgetComponent implements OnInit, OnChanges {
   @Input()
   portModel: PortModel = null;
 
-  @ViewChild('cpecificWidget', { read: ViewContainerRef })
+  @ViewChild('specificWidget', { read: ViewContainerRef })
   portWidget: ViewContainerRef;
 
   constructor(private widgetFactory: WidgetFactoryService) {}
