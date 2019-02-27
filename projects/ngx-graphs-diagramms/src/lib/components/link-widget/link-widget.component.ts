@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { LinkModel } from '../../models/link.model';
 import { Coords } from '../../interfaces/coords';
 
 @Component({
   selector: 'ngx-link-widget',
   templateUrl: './link-widget.component.html',
-  styleUrls: ['./link-widget.component.scss']
+  styleUrls: ['./link-widget.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LinkWidgetComponent {
   @Input()
