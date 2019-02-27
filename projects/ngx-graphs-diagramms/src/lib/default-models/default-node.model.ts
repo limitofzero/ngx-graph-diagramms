@@ -1,6 +1,7 @@
 import { NodeModel } from '../models/node.model';
 
 export class DefaultNodeModel extends NodeModel {
+  static readonly BORDER_WIDTH = 2;
   description: string;
 
   constructor(data: { type: string, description?: string, id?: string }) {

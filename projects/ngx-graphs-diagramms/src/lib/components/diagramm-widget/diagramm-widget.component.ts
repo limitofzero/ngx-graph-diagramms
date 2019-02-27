@@ -4,7 +4,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnDestroy, QueryList,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 import { NodeModel } from '../../models/node.model';

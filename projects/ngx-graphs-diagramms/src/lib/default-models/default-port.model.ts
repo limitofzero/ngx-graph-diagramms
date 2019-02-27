@@ -1,6 +1,7 @@
 import { PortModel } from '../models/port.model';
 import { NodeModel } from '../models/node.model';
 import { Coords } from '../interfaces/coords';
+import { DefaultNodeModel } from './default-node.model';
 
 export class DefaultPortModel extends PortModel {
   positionClass: string;
@@ -28,20 +29,20 @@ export class DefaultPortModel extends PortModel {
     let y: number;
     switch (this.positionClass) {
       case 'left-center':
-        x = offsetLeft;
-        y = offsetTop + height / 2;
+        x = offsetLeft - DefaultNodeModel.BORDER_WIDTH;
+        y = offsetTop + height / 2 + DefaultNodeModel.BORDER_WIDTH;
         break;
       case 'right-center':
-        x = offsetLeft + width;
-        y = offsetTop + height / 2;
+        x = offsetLeft + width + DefaultNodeModel.BORDER_WIDTH;
+        y = offsetTop + height / 2 + DefaultNodeModel.BORDER_WIDTH;
         break;
       case 'top-center':
-        x = offsetLeft + width / 2;
-        y = offsetTop;
+        x = offsetLeft + width / 2 + DefaultNodeModel.BORDER_WIDTH;
+        y = offsetTop - DefaultNodeModel.BORDER_WIDTH;
         break;
       case 'bottom-center':
-        x = offsetLeft + width / 2;
-        y = offsetTop + height;
+        x = offsetLeft + width / 2 + DefaultNodeModel.BORDER_WIDTH;
+        y = offsetTop + height - DefaultNodeModel.BORDER_WIDTH;
         break;
     }
 
