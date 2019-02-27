@@ -3,7 +3,11 @@ import { PortModel } from '../models/port.model';
 export class DefaultPortModel extends PortModel {
   positionClass: string;
 
-  constructor(data: { positionClass: string, id?: string }) {
+  constructor(data: {
+    type: string,
+    positionClass: string,
+    id?: string
+  }) {
     super(data);
     const { positionClass } = data;
     this.positionClass = positionClass;

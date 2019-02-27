@@ -35,10 +35,10 @@ storiesOf('Diagramm widget', module).add('widget', () => {
     new DefaultNodeModel(nodeData)];
 
   const ports = [
-    new DefaultPortModel({ positionClass: 'bottom-center' }),
-    new DefaultPortModel({ positionClass: 'top-center' }),
-    new DefaultPortModel({ positionClass: 'right-center' }),
-    new DefaultPortModel({ positionClass: 'left-center' })
+    new DefaultPortModel({ type: 'defaultPort', positionClass: 'bottom-center' }),
+    new DefaultPortModel({ type: 'defaultPort', positionClass: 'top-center' }),
+    new DefaultPortModel({ type: 'defaultPort', positionClass: 'right-center' }),
+    new DefaultPortModel({ type: 'defaultPort', positionClass: 'left-center' })
   ];
 
   const links = [ new LinkModel(), new LinkModel(), new LinkModel() ];

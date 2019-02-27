@@ -30,7 +30,14 @@ export class PortWidgetComponent implements OnInit, OnChanges {
   constructor(private widgetFactory: WidgetFactoryService) {}
 
   ngOnInit(): void {
-    const factory = this.widgetFactory.getComponentFactoryByName('defaultPort');
+    if (this.portModel) {
+      const componentType = this.portModel.type;
+      this.createComponentInstance(componentType);
+    }
+  }
+
+  private createComponentInstance(componentType: string): void {
+    const factory = this.widgetFactory.getComponentFactoryByName(componentType);
     const component = this.portWidget.createComponent(factory);
     this.instance = component.instance;
     this.instance.portModel = this.portModel;
