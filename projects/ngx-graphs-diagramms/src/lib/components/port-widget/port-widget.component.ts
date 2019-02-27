@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { PortModel } from '../../models/port.model';
 import { WidgetFactoryService } from '../../services/widget-factory/widget-factory.service';
-import { DefaultPortModel } from '../../default-models/default-port.model';
 import { DefaultPortWidgetComponent } from '../default-widgets/default-port-widget/default-port-widget.component';
 
 @Component({

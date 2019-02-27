@@ -11,18 +11,15 @@ import { NodeModel } from '../../models/node.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
-import { NodeMap } from '../../interfaces/node-map';
 import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
-import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
-import { LinkMap } from '../../interfaces/link-map';
 import { Coords } from '../../interfaces/coords';
 import { PortCoords } from '../../interfaces/port-coords';
-import { PointMap } from '../../interfaces/point-map';
 import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
 import { PointModel } from '../../models/point.model';
 import { LinkCoords } from '../../pipes/link-to-coords.pipe';
 import { LinkModel } from '../../models/link.model';
 import { BaseModel } from '../../models/base.model';
+import { ModelMap } from '../../interfaces/model-map';
 
 export interface DraggableEntity {
   entity: BaseModel;
@@ -46,13 +43,13 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   portCoords: PortCoords = {};
 
   @Input()
-  nodes: NodeMap = {};
+  nodes: ModelMap<NodeModel> = {};
 
   @Input()
-  links: LinkMap = {};
+  links: ModelMap<LinkModel> = {};
 
   @Input()
-  points: PointMap = {};
+  points: ModelMap<PointModel> = {};
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
@@ -124,6 +121,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.initListeningMouseMoveEvent();
     this.initListeningMouseUp();
+    this.nodesRenderedHandler();
   }
 
   private initListeningMouseUp(): void {
@@ -216,23 +214,22 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.entityCoords = null;
   }
 
-  nodesRenderedHandler(nodeWidgets: QueryList<SpecificNodeWidget>): void {
+  nodesRenderedHandler(): void {
     this.nodesRendered = true;
 
-    const coords: PortCoords = nodeWidgets.reduce((acc, nodeWidget) => {
-      const nodeOffsetLeft = nodeWidget.nodeModel.x;
-      const nodeOffsetTop = nodeWidget.nodeModel.y;
+    const coords: PortCoords = Object.keys(this.nodes)
+        .map(id => this.nodes[id])
+        .reduce((coordMap, node) => {
+          const ports = node.ports;
+          const map = Object.keys(ports)
+            .map(id => ports[id])
+            .reduce((mp, port) => {
+              mp[port.id] = port.getConnectPosition(node);
+              return mp;
+            }, {});
 
-      const ports: PortCoords = nodeWidget.portWidgets.reduce((acc, portWidget) => {
-        const offsetLeft = (portWidget.instance.positionedContainer.nativeElement as any).offsetLeft;
-        const offsetTop = (portWidget.instance.positionedContainer.nativeElement as any).offsetTop;
-
-        acc[portWidget.portModel.id] = { x: nodeOffsetLeft + offsetLeft, y: nodeOffsetTop + offsetTop };
-        return acc;
-      }, {});
-
-      return { ...acc, ...ports };
-    }, {});
+          return { ...coordMap, ...map };
+        }, {});
 
     this.portCoords = coords;
     console.log(coords);

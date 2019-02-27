@@ -3,8 +3,10 @@ import { PortModel } from './port.model';
 import { ModelMap } from '../interfaces/model-map';
 
 export class NodeModel extends BaseModel {
-  x = 0;
-  y = 0;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
   readonly type: string;
 
   ports: ModelMap<PortModel> = {};
@@ -14,13 +16,17 @@ export class NodeModel extends BaseModel {
     id?: string,
     x?: number,
     y?: number,
+    width?: number,
+    height?: number,
     ports?: ModelMap<PortModel>
   }) {
     super(data.id);
-    const { type, x, y, ports } = data;
+    const { type, x, y, ports, width, height } = data;
     this.type = type;
     this.x = x || 0;
     this.y = y || 0;
+    this.width = width || 0;
+    this.height = height || 0;
     this.ports = ports || {};
   }
 
@@ -28,7 +34,7 @@ export class NodeModel extends BaseModel {
     return new NodeModel(this);
   }
 
-  cloneNodeWithPosition(x: number, y: number): NodeModel {
+  setPositionAndClone(x: number, y: number): NodeModel {
     const cloned = this.clone();
     cloned.x = x;
     cloned.y = y;

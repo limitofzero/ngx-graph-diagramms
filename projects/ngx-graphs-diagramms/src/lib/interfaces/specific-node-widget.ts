@@ -4,8 +4,6 @@ import { PortWidgetComponent } from '../components/port-widget/port-widget.compo
 
 // todo убрать отсылки к виджетам
 export interface SpecificNodeWidget {
-  positionedContainer: ElementRef;
   selected: boolean;
-  portWidgets: QueryList<PortWidgetComponent>;
   nodeModel: NodeModel;
 }

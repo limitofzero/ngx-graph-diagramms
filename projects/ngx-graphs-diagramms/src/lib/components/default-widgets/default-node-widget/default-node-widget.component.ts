@@ -11,10 +11,6 @@ import { PortWidgetComponent } from '../../port-widget/port-widget.component';
   styleUrls: ['./default-node-widget.component.scss']
 })
 export class DefaultNodeWidgetComponent implements SpecificNodeWidget {
-  @ViewChild('positionedContainer', { read: ElementRef }) positionedContainer;
-
-  @ViewChildren('port') portWidgets: QueryList<PortWidgetComponent>;
-
   @Input()
   selected = false;
 

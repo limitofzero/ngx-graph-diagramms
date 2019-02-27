@@ -1,7 +1,9 @@
 import { BaseModel } from './base.model';
 import { LinkModel } from './link.model';
+import { Coords } from '../interfaces/coords';
+import { NodeModel } from './node.model';
 
-export class PortModel extends BaseModel {
+export abstract class PortModel extends BaseModel {
   readonly type: string;
   links: Set<string>;
 
@@ -16,9 +18,9 @@ export class PortModel extends BaseModel {
     this.links = links || new Set<string>();
   }
 
-  clone(): PortModel {
-    return new PortModel(this);
-  }
+  abstract clone(): PortModel;
+
+  abstract getConnectPosition(parentNode: NodeModel): Coords;
 
   addLink(link: LinkModel): void {
     const id = link.id;

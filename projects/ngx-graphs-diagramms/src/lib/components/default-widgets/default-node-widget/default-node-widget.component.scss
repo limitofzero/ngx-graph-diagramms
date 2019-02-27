@@ -1,15 +1,16 @@
 .default-node-widget {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(30, 30, 30);
   border-radius: 5px;
   font-family: sans-serif;
   color: #fff;
   border: solid 2px #000;
-  overflow: visible;
   font-size: 11px;
-  padding: 1rem;
 
   &.selected {
-    border: 1px solid rgb(0,192,255);
+    border: 2px solid rgb(0,192,255);
   }
 }

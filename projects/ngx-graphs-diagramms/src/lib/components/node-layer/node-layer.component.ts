@@ -1,19 +1,14 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   Output,
-  QueryList,
-  ViewChildren
 } from '@angular/core';
 import { NodeMap } from '../../interfaces/node-map';
-import { NodeWidgetComponent } from '../node-widget/node-widget.component';
 import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
 import { KeyValue } from '@angular/common';
 import { NodeModel } from '../../models/node.model';
-import { SpecificNodeWidget } from '../../interfaces/specific-node-widget';
 import { LinkMap } from '../../interfaces/link-map';
 import { PortCoords } from '../../interfaces/port-coords';
 import { PointMap } from '../../interfaces/point-map';
@@ -27,7 +22,7 @@ import { LinkCoords } from '../../pipes/link-to-coords.pipe';
   styleUrls: ['./node-layer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NodeLayerComponent implements AfterViewInit {
+export class NodeLayerComponent {
   @Input()
   nodes: NodeMap = {};
 
@@ -52,17 +47,11 @@ export class NodeLayerComponent implements AfterViewInit {
   @Output()
   linkClicked = new EventEmitter<LinkClickedEvent>();
 
-  @Output()
-  nodesRendered = new EventEmitter<SpecificNodeWidget[]>();
-
-  @ViewChildren(NodeWidgetComponent) widgets: QueryList<NodeWidgetComponent>;
-
   onDraggableEntityClickedHandler(event: DraggableEntityClicked): void {
     this.draggableEntityClicked.emit(event);
   }
 
   onLinkMouseDownHandler(link: LinkModel, coords: LinkCoords, event: MouseEvent): void {
-    console.log(event);
     this.linkClicked.emit({ link, event, range: coords });
   }
 
@@ -72,10 +61,5 @@ export class NodeLayerComponent implements AfterViewInit {
 
   trackByIndexFn(index: number, item: any): number {
     return index;
-  }
-
-  ngAfterViewInit(): void {
-    const specificWidgets = this.widgets.map(widget => widget.instance);
-    this.nodesRendered.emit(specificWidgets);
   }
 }

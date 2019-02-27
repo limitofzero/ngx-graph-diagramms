@@ -27,12 +27,13 @@ const entityArrayToMap = (arr: BaseModel[]) => arr.reduce((map, entity) => {
 }, {});
 
 storiesOf('Diagramm widget', module).add('widget', () => {
-  const nodeData = { type: 'defaultNode', test: '' };
+  const nodeData = { type: 'defaultNode', width: 50, height: 50 };
 
   const nodes = [
     new DefaultNodeModel(nodeData),
     new DefaultNodeModel(nodeData),
-    new DefaultNodeModel(nodeData)];
+    new DefaultNodeModel(nodeData)
+  ];
 
   const ports = [
     new DefaultPortModel({ type: 'defaultPort', positionClass: 'bottom-center' }),
