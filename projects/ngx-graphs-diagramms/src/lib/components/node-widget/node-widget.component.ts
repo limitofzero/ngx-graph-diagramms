@@ -18,7 +18,7 @@ import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicke
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodeWidgetComponent implements OnInit, OnChanges {
-  public instance: DefaultNodeWidgetComponent;
+  private instance: DefaultNodeWidgetComponent;
 
   @Input()
   selected = false;

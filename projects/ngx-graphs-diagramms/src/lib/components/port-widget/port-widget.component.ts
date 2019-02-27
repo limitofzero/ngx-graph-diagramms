@@ -18,7 +18,7 @@ import { DefaultPortWidgetComponent } from '../default-widgets/default-port-widg
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PortWidgetComponent implements OnInit, OnChanges {
-  public instance: DefaultPortWidgetComponent;
+  private instance: DefaultPortWidgetComponent;
 
   @Input()
   portModel: PortModel = null;
