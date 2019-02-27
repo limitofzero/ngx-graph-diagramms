@@ -3,6 +3,7 @@
      [style.left]="nodeModel?.x + 'px'"
      [style.width]="nodeModel?.width + 'px'"
      [style.height]="nodeModel?.height + 'px'"
+     [style.borderWidth]="defaultNodeModel?.BORDER_WIDTH + 'px'"
      [class.selected]="selected">
   <div>{{ defaultNodeModel?.description }}</div>
   <ng-container *ngFor="let item of nodeModel?.ports | keyvalue">

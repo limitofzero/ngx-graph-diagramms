@@ -21,7 +21,8 @@ export class DefaultPortModel extends PortModel {
   }
 
   getConnectPosition(parentNode: NodeModel): Coords {
-    const { width, height } = parentNode;
+    const node = parentNode as DefaultNodeModel;
+    const { width, height, BORDER_WIDTH } = node;
     const offsetLeft = parentNode.x;
     const offsetTop = parentNode.y;
 
@@ -29,20 +30,20 @@ export class DefaultPortModel extends PortModel {
     let y: number;
     switch (this.positionClass) {
       case 'left-center':
-        x = offsetLeft - DefaultNodeModel.BORDER_WIDTH;
-        y = offsetTop + height / 2 + DefaultNodeModel.BORDER_WIDTH;
+        x = offsetLeft - BORDER_WIDTH;
+        y = offsetTop + height / 2 + BORDER_WIDTH;
         break;
       case 'right-center':
-        x = offsetLeft + width + DefaultNodeModel.BORDER_WIDTH;
-        y = offsetTop + height / 2 + DefaultNodeModel.BORDER_WIDTH;
+        x = offsetLeft + width + BORDER_WIDTH;
+        y = offsetTop + height / 2 + BORDER_WIDTH;
         break;
       case 'top-center':
-        x = offsetLeft + width / 2 + DefaultNodeModel.BORDER_WIDTH;
-        y = offsetTop - DefaultNodeModel.BORDER_WIDTH;
+        x = offsetLeft + width / 2 + BORDER_WIDTH;
+        y = offsetTop - BORDER_WIDTH;
         break;
       case 'bottom-center':
-        x = offsetLeft + width / 2 + DefaultNodeModel.BORDER_WIDTH;
-        y = offsetTop + height - DefaultNodeModel.BORDER_WIDTH;
+        x = offsetLeft + width / 2 + BORDER_WIDTH;
+        y = offsetTop + height - BORDER_WIDTH;
         break;
     }
 
