@@ -13,6 +13,9 @@ import { LinkMap } from '../../../interfaces/link-map';
 import { PortCoords } from '../../../interfaces/port-coords';
 import { PointMap } from '../../../interfaces/point-map';
 import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
+import { ModelMap } from '../../../interfaces/model-map';
+import { PortModel } from '../../../models/port.model';
+import { LinkModel } from '../../../models/link.model';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -22,7 +25,7 @@ import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
 })
 export class NodeLayerComponent {
   @Input()
-  nodes: NodeMap = {};
+  nodes: ModelMap<NodeModel> = {};
 
   @Input()
   selectedId: number = null;
@@ -31,10 +34,10 @@ export class NodeLayerComponent {
   showLinks = false;
 
   @Input()
-  links: LinkMap = {};
+  links: ModelMap<LinkModel> = {};
 
   @Input()
-  points: PointMap = {};
+  points: ModelMap<PortModel> = {};
 
   @Input()
   portCoords: PortCoords = {};
