@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PointModel } from '../../models/point.model';
-import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
+import { PointModel } from '../../../models/point.model';
+import { DraggableEntityClicked } from '../../../interfaces/draggable-entity-clicked';
 
 @Component({
   selector: 'ngx-point-widget',

@@ -7,9 +7,9 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { PortModel } from '../../models/port.model';
-import { WidgetFactoryService } from '../../services/widget-factory/widget-factory.service';
-import { DefaultPortWidgetComponent } from '../default-widgets/default-port-widget/default-port-widget.component';
+import { PortModel } from '../../../models/port.model';
+import { WidgetFactoryService } from '../../../services/widget-factory/widget-factory.service';
+import { DefaultPortWidgetComponent } from '../../default-widgets/default-port-widget/default-port-widget.component';
 
 @Component({
   selector: 'ngx-port-widget',

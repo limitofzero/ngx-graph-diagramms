@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { LinkModel } from '../../models/link.model';
-import { LinkCoords } from '../../pipes/link-to-coords.pipe';
-import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
+import { LinkModel } from '../../../models/link.model';
+import { LinkCoords } from '../../../pipes/link-to-coords.pipe';
+import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
 
 @Component({
   selector: '[ngx-link-widget]',

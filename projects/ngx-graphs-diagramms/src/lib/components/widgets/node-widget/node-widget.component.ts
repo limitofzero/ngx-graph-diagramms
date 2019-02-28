@@ -6,10 +6,10 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { WidgetFactoryService } from '../../services/widget-factory/widget-factory.service';
-import { NodeModel } from '../../models/node.model';
-import { DefaultNodeWidgetComponent } from '../default-widgets/default-node-widget/default-node-widget.component';
-import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
+import { WidgetFactoryService } from '../../../services/widget-factory/widget-factory.service';
+import { NodeModel } from '../../../models/node.model';
+import { DefaultNodeWidgetComponent } from '../../default-widgets/default-node-widget/default-node-widget.component';
+import { DraggableEntityClicked } from '../../../interfaces/draggable-entity-clicked';
 
 @Component({
   selector: 'ngx-node-widget',

@@ -3,23 +3,23 @@ import { withNotes } from '@storybook/addon-notes';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { DiagrammWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/diagramm-widget/diagramm-widget.component';
 import { NodeLayerComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/node-layer/node-layer.component';
 import {
   DefaultNodeWidgetComponent,
 } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-node-widget/default-node-widget.component';
-import { NodeWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/node-widget/node-widget.component';
+import { NodeWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/node-widget/node-widget.component';
 import { WidgetFactoryService } from '../../projects/ngx-graphs-diagramms/src/lib/services/widget-factory/widget-factory.service';
-import { PortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/port-widget/port-widget.component';
-import { DefaultPortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-port-widget/default-port-widget.component';
+import { PortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/port-widget/port-widget.component';
 import { DefaultNodeModel } from '../../projects/ngx-graphs-diagramms/src/lib/default-models/default-node.model';
 import { DefaultPortModel } from '../../projects/ngx-graphs-diagramms/src/lib/default-models/default-port.model';
-import { LinkWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/link-widget/link-widget.component';
-import { PointWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/point-widget/point-widget.component';
+import { LinkWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/link-widget/link-widget.component';
+import { PointWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/point-widget/point-widget.component';
 import { LinkToCoordsPipe } from '../../projects/ngx-graphs-diagramms/src/lib/pipes/link-to-coords.pipe';
 import { LinkModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/link.model';
 import { BaseModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/base.model';
 import { NgxGraphsDiagrammsModule } from '../../projects/ngx-graphs-diagramms/src/lib/ngx-graphs-diagramms.module';
+import { DefaultPortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-port-widget/default-port-widget.component';
+import { DiagrammWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/diagramm-widget/diagramm-widget.component';
 
 const entityArrayToMap = (arr: BaseModel[]) => arr.reduce((map, entity) => {
   map[entity.id] = entity;

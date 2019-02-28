@@ -7,19 +7,19 @@ import {
   OnDestroy,
   ViewChild
 } from '@angular/core';
-import { NodeModel } from '../../models/node.model';
+import { NodeModel } from '../../../models/node.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { filter, takeUntil } from 'rxjs/operators';
-import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
-import { Coords } from '../../interfaces/coords';
-import { PortCoords } from '../../interfaces/port-coords';
-import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
-import { PointModel } from '../../models/point.model';
-import { LinkCoords } from '../../pipes/link-to-coords.pipe';
-import { LinkModel } from '../../models/link.model';
-import { BaseModel } from '../../models/base.model';
-import { ModelMap } from '../../interfaces/model-map';
+import { DraggableEntityClicked } from '../../../interfaces/draggable-entity-clicked';
+import { Coords } from '../../../interfaces/coords';
+import { PortCoords } from '../../../interfaces/port-coords';
+import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
+import { PointModel } from '../../../models/point.model';
+import { LinkCoords } from '../../../pipes/link-to-coords.pipe';
+import { LinkModel } from '../../../models/link.model';
+import { BaseModel } from '../../../models/base.model';
+import { ModelMap } from '../../../interfaces/model-map';
 
 export interface DraggableEntity {
   entity: BaseModel;

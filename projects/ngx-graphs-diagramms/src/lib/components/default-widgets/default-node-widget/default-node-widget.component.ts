@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChild, View
 import { NodeModel } from '../../../models/node.model';
 import { DefaultNodeModel } from '../../../default-models/default-node.model';
 import { SpecificNodeWidget } from '../../../interfaces/specific-node-widget';
-import { PortWidgetComponent } from '../../port-widget/port-widget.component';
+import { PortWidgetComponent } from '../../widgets/port-widget/port-widget.component';
 
 
 @Component({
