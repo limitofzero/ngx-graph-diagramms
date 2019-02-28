@@ -1,17 +1,14 @@
-<svg:g class="link-line">
-  <ng-container *ngFor="let coord of coords;
+<ng-container *ngFor="let coord of coords;
           let isLast = last;
           trackBy: trackByIndexFn">
-
-    <svg:line
-      [attr.x1]="coord.x1"
-      [attr.y1]="coord.y1"
-      [attr.x2]="coord.x2"
-      [attr.y2]="coord.y2"
-      stroke="rgb(0,192,255)"
-      stroke-width="3"
-      [attr.marker-end]=" isLast ? 'url(#node-marker)' : 'url(#point-marker)'"
-      (mousedown)="onMouseDownHandler(coord, $event)">
-    </svg:line>
-  </ng-container>
-</svg:g>
+  <svg:line
+    [attr.x1]="coord.x1"
+    [attr.y1]="coord.y1"
+    [attr.x2]="coord.x2"
+    [attr.y2]="coord.y2"
+    stroke="rgb(0,192,255)"
+    stroke-width="3"
+    [attr.marker-end]=" isLast ? 'url(#node-marker)' : 'url(#point-marker)'"
+    (mousedown)="onMouseDownHandler(coord, $event)">
+  </svg:line>
+</ng-container>
