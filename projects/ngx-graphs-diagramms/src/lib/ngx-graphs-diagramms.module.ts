@@ -1,6 +1,6 @@
 import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { DiagrammWidgetComponent } from './components/widgets/diagramm-widget/diagramm-widget.component';
-import { NodeLayerComponent } from './components/node-layer/node-layer.component';
+import { NodeLayerComponent } from './components/layers/node-layer/node-layer.component';
 import { DefaultNodeWidgetComponent } from './components/default-widgets/default-node-widget/default-node-widget.component';
 import { NodeWidgetComponent } from './components/widgets/node-widget/node-widget.component';
 import { PortWidgetComponent } from './components/widgets/port-widget/port-widget.component';

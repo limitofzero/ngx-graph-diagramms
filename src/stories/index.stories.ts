@@ -3,7 +3,7 @@ import { withNotes } from '@storybook/addon-notes';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { NodeLayerComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/node-layer/node-layer.component';
+import { NodeLayerComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/layers/node-layer/node-layer.component';
 import {
   DefaultNodeWidgetComponent,
 } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-node-widget/default-node-widget.component';

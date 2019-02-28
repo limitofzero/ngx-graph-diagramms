@@ -5,16 +5,16 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { NodeMap } from '../../interfaces/node-map';
-import { DraggableEntityClicked } from '../../interfaces/draggable-entity-clicked';
+import { NodeMap } from '../../../interfaces/node-map';
+import { DraggableEntityClicked } from '../../../interfaces/draggable-entity-clicked';
 import { KeyValue } from '@angular/common';
-import { NodeModel } from '../../models/node.model';
-import { LinkMap } from '../../interfaces/link-map';
-import { PortCoords } from '../../interfaces/port-coords';
-import { PointMap } from '../../interfaces/point-map';
-import { LinkModel } from '../../models/link.model';
-import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
-import { LinkCoords } from '../../pipes/link-to-coords.pipe';
+import { NodeModel } from '../../../models/node.model';
+import { LinkMap } from '../../../interfaces/link-map';
+import { PortCoords } from '../../../interfaces/port-coords';
+import { PointMap } from '../../../interfaces/point-map';
+import { LinkModel } from '../../../models/link.model';
+import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
+import { LinkCoords } from '../../../pipes/link-to-coords.pipe';
 
 @Component({
   selector: 'ngx-node-layer',
