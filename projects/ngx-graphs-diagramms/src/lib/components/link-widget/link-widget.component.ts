@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { LinkModel } from '../../models/link.model';
-import { Coords } from '../../interfaces/coords';
+import { LinkCoords } from '../../pipes/link-to-coords.pipe';
+import { LinkClickedEvent } from '../../interfaces/link-clicked-event';
 
 @Component({
-  selector: 'ngx-link-widget',
+  selector: '[ngx-link-widget]',
   templateUrl: './link-widget.component.html',
   styleUrls: ['./link-widget.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -13,12 +14,20 @@ export class LinkWidgetComponent {
   linkModel: LinkModel = null;
 
   @Input()
-  source: Coords = null;
+  coords: LinkCoords[] = [];
 
-  @Input()
-  target: Coords = null;
+  @Output()
+  clicked = new EventEmitter<LinkClickedEvent>();
 
-  mouseDownHandler(event: MouseEvent): void {
-    console.log(event);
+  trackByIndexFn(index: number): number {
+    return index;
+  }
+
+  onMouseDownHandler(coords: LinkCoords, event: MouseEvent): void {
+    this.clicked.emit({
+      link: this.linkModel,
+      range: coords,
+      event
+    });
   }
 }

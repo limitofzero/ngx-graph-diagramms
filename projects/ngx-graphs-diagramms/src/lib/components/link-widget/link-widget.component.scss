@@ -1,0 +1,15 @@
+.link-line {
+  @keyframes dash {
+    from {
+      stroke-dashoffset: 24;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  &:hover {
+    stroke-dasharray: 10,2;
+    animation: dash 1s linear infinite;
+  }
+}

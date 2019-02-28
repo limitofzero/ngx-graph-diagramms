@@ -51,8 +51,8 @@ export class NodeLayerComponent {
     this.draggableEntityClicked.emit(event);
   }
 
-  onLinkMouseDownHandler(link: LinkModel, coords: LinkCoords, event: MouseEvent): void {
-    this.linkClicked.emit({ link, event, range: coords });
+  onLinkMouseDownHandler(event: LinkClickedEvent): void {
+    this.linkClicked.emit(event);
   }
 
   trackByFn(item: KeyValue<number, NodeModel>): number {
