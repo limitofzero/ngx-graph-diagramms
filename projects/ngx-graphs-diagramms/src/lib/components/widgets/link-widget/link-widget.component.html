@@ -8,7 +8,7 @@
     [attr.y2]="coord.y2"
     stroke="rgb(0,192,255)"
     stroke-width="3"
-    [attr.marker-end]=" isLast ? 'url(#node-marker)' : 'url(#point-marker)'"
+    [attr.marker-end]=" isLast ? 'url(#node-marker)' : null"
     (mousedown)="onMouseDownHandler(coord, $event)">
   </svg:line>
 </ng-container>

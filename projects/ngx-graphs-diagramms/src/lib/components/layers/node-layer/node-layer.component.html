@@ -19,11 +19,6 @@
                 refX="1.5" refY="1.5" orient="auto">
           <polygon points="0 0, 2 1.5, 0 3" />
         </marker>
-        <marker [attr.id]="'point-marker'" markerWidth="10" markerHeight="7"
-                fill="rgb(0,192,255)"
-                refX="3" refY="1.5" orient="auto">
-          <polygon points="0 0, 2 1.5, 0 3" />
-        </marker>
       </defs>
       <ng-container *ngFor="let link of links | keyvalue; trackBy: trackByFn">
         <g ngx-link-widget [linkModel]="link.value"
