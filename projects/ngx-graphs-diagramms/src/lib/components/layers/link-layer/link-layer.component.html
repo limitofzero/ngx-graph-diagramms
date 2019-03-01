@@ -1,0 +1,17 @@
+<div class="link-layer">
+  <svg width="100%" height="100%">
+    <defs>
+      <marker [attr.id]="'node-marker'" markerWidth="10" markerHeight="7"
+              fill="rgb(0,192,255)"
+              refX="1.5" refY="1.5" orient="auto">
+        <polygon points="0 0, 2 1.5, 0 3" />
+      </marker>
+    </defs>
+    <ng-container *ngFor="let link of links | keyvalue; trackBy: trackByFn">
+      <g ngx-link-widget [linkModel]="link.value"
+         [coords]="link.value | linkToCoords:portCoords:points"
+         (clicked)="onLinkMouseDownHandler($event)">
+      </g>
+    </ng-container>
+  </svg>
+</div>
