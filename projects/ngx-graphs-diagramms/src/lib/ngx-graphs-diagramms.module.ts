@@ -9,6 +9,7 @@ import { LinkWidgetComponent } from './components/widgets/link-widget/link-widge
 import { PointWidgetComponent } from './components/widgets/point-widget/point-widget.component';
 import { LinkToCoordsPipe } from './pipes/link-to-coords.pipe';
 import { COMPONENT_MAP, WidgetFactoryService } from './services/widget-factory/widget-factory.service';
+import { LinkLayerComponent } from './components/layers/link-layer/link-layer.component';
 
 // todo вынести все дефолтные компоненты в отдельный модуль
 @NgModule({
@@ -21,7 +22,8 @@ import { COMPONENT_MAP, WidgetFactoryService } from './services/widget-factory/w
     DefaultPortWidgetComponent,
     LinkWidgetComponent,
     PointWidgetComponent,
-    LinkToCoordsPipe
+    LinkToCoordsPipe,
+    LinkLayerComponent
   ],
   entryComponents: [
     DefaultNodeWidgetComponent,

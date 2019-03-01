@@ -2,10 +2,14 @@
   <ngx-node-layer [nodes]="nodes"
                   [selectedId]="selectedEntityId"
                   [showLinks]="nodesRendered"
-                  [links]="links"
                   [points]="points"
-                  [portCoords]="portCoords"
-                  (linkClicked)="onLinkClicked($event)"
                   (draggableEntityClicked)="onDraggableEntityClickedHandler($event)">
   </ngx-node-layer>
+  <ng-container *ngIf="nodesRendered">
+    <ngx-link-layer [portCoords]="portCoords"
+                    [links]="links"
+                    [points]="points"
+                    (linkClicked)="onLinkClicked($event)">
+    </ngx-link-layer>
+  </ng-container>
 </div>

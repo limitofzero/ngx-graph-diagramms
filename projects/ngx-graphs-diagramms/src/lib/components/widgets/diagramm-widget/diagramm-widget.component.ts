@@ -66,9 +66,10 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
     const index = this.getPointIndex(link, range);
     link.addPoint(point.id, index);
+    this.links = { ...this.links, [link.id]: link };
     this.points = { ...this.points, [point.id]: point };
 
-    this.setModelPosition(point, event);
+    this.setEntityCoords(point, event);
     this.ref.markForCheck();
   }
 
@@ -102,11 +103,11 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
     if (entity) {
       this.selectedEntityId = entity.id;
-      this.setModelPosition(entity, event);
+      this.setEntityCoords(entity, event);
     }
   }
 
-  setModelPosition(entity: BaseModel, event: MouseEvent): void {
+  setEntityCoords(entity: BaseModel, event: MouseEvent): void {
     const { pageX, pageY } = event;
     const startX = pageX;
     const startY = pageY;
@@ -128,7 +129,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     fromEvent(this.diagramWidget.nativeElement, 'mouseup').pipe(
       takeUntil(this.onDestroy)
     ).subscribe({
-      next: () => this.resetClickedEntityId()
+      next: () => this.resetEntityCoords()
     });
   }
 
@@ -173,6 +174,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   private MoveNode(nodeModel: NodeModel, event: MouseEvent): void {
+    console.log(nodeModel);
     const { pageX, pageY } = event;
     const { startX, startY } = this.entityCoords;
 
@@ -210,7 +212,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     this.portCoords = { ...this.portCoords };
   }
 
-  private resetClickedEntityId(): void {
+  private resetEntityCoords(): void {
     this.entityCoords = null;
   }
 
