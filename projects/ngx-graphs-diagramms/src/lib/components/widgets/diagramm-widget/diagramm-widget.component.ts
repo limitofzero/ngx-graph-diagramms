@@ -20,6 +20,7 @@ import { LinkCoords } from '../../../pipes/link-to-coords.pipe';
 import { LinkModel } from '../../../models/link.model';
 import { BaseModel } from '../../../models/base.model';
 import { ModelMap } from '../../../interfaces/model-map';
+import { combineLatest } from 'rxjs';
 
 export interface DraggableEntity {
   entity: BaseModel;
@@ -121,12 +122,15 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.initListeningMouseMoveEvent();
-    this.initListeningMouseUp();
+    this.initListeningMouseUpLeave();
     this.nodesRenderedHandler();
   }
 
-  private initListeningMouseUp(): void {
-    fromEvent(this.diagramWidget.nativeElement, 'mouseup').pipe(
+  private initListeningMouseUpLeave(): void {
+    combineLatest(
+      fromEvent(this.diagramWidget.nativeElement, 'mouseup'),
+      fromEvent(this.diagramWidget.nativeElement, 'mouseleave')
+    ).pipe(
       takeUntil(this.onDestroy)
     ).subscribe({
       next: () => this.resetEntityCoords()
