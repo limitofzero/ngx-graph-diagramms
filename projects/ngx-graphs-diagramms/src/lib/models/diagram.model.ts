@@ -5,8 +5,8 @@ import { PointModel } from './point.model';
 import { BaseModel } from './base.model';
 
 export class DiagramModel extends BaseModel {
-  offsetLeft: number;
-  offsetTop: number;
+  x: number;
+  y: number;
 
   nodes: Map<string, NodeModel>;
   ports: Map<string, PortModel>;
@@ -15,17 +15,17 @@ export class DiagramModel extends BaseModel {
 
   constructor(data: {
     id?: string;
-    offsetLeft?: number,
-    offsetTop?: number,
+    x?: number,
+    y?: number,
     nodes?: Map<string, NodeModel>,
     ports?: Map<string, PortModel>,
     links?: Map<string, LinkModel>,
     points?: Map<string, PointModel>
   }) {
     super(data.id);
-    const { offsetLeft, offsetTop } = data;
-    this.offsetLeft = offsetLeft || 0;
-    this.offsetTop = offsetTop || 0;
+    const { x, y } = data;
+    this.x = x || 0;
+    this.y = y || 0;
 
     const { nodes, ports, links, points }  = data;
     this.nodes = nodes || new Map();

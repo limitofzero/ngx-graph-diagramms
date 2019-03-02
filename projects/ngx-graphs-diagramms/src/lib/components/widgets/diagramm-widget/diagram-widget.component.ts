@@ -56,8 +56,8 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
 
     const point = new PointModel();
     const offsets = this.getDiagrammOffsets();
-    point.x = pageX - offsets.offsetLeft;
-    point.y = pageY - offsets.offsetTop;
+    point.x = pageX - offsets.offsetLeft - this.diagramModel.x;
+    point.y = pageY - offsets.offsetTop - this.diagramModel.y;
 
     const index = this.getPointIndex(link, range);
     const cloned = link.addPoint(point.id, index);
@@ -66,6 +66,7 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
     this.diagramModel = diagram;
 
     this.setEntityCoords(point, event);
+    event.stopPropagation();
     this.ref.markForCheck();
   }
 
@@ -100,6 +101,7 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
     if (entity) {
       this.selectedEntityId = entity.id;
       this.setEntityCoords(entity, event);
+      event.stopPropagation();
     }
   }
 
@@ -147,6 +149,26 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
       this.MoveNode(entity as NodeModel, event);
     } else if (entity instanceof PointModel) {
       this.MovePoint(entity as PointModel, event);
+    } else if (entity instanceof DiagramModel) {
+      const { pageX, pageY } = event;
+      const { startX, startY } = this.entityCoords;
+
+      const diffX = (pageX - startX);
+      const diffY = (pageY - startY);
+
+      const x = this.diagramModel.x + diffX;
+      const y = this.diagramModel.y + diffY;
+
+      const cloned = this.diagramModel.clone();
+      cloned.x = x;
+      cloned.y = y;
+
+      this.diagramModel = cloned;
+      this.entityCoords.entity = cloned;
+      this.entityCoords.startY = pageY;
+      this.entityCoords.startX = pageX;
+      console.log(this.diagramModel);
+      this.ref.markForCheck();
     }
   }
 

@@ -1,5 +1,7 @@
-<div class="diagramm" #diagramWidget>
-  <div class="movable" (click)="onDraggableEntityClickedHandler({ entity: diagramModel, event: $event })">
+<div class="diagramm" #diagramWidget
+     (mousedown)="onDraggableEntityClickedHandler({ entity: diagramModel, event: $event })">
+  <div class="movable" [style.left]="diagramModel.x + 'px'"
+       [style.top]="diagramModel.y + 'px'">
     <ngx-node-layer [nodes]="diagramModel.nodes"
                     [selectedId]="selectedEntityId"
                     [showLinks]="nodesRendered"
