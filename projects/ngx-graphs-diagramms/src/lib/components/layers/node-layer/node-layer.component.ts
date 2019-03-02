@@ -6,10 +6,9 @@ import {
   Output,
 } from '@angular/core';
 import { DraggableEntityClicked } from '../../../interfaces/draggable-entity-clicked';
-import { KeyValue } from '@angular/common';
 import { NodeModel } from '../../../models/node.model';
-import { ModelMap } from '../../../interfaces/model-map';
-import { PortModel } from '../../../models/port.model';
+import { PointModel } from '../../../models/point.model';
+import { BaseModel } from '../../../models/base.model';
 
 @Component({
   selector: 'ngx-node-layer',
@@ -19,16 +18,16 @@ import { PortModel } from '../../../models/port.model';
 })
 export class NodeLayerComponent {
   @Input()
-  nodes: ModelMap<NodeModel> = {};
+  nodes: Map<string, NodeModel> = new Map();
 
   @Input()
-  selectedId: number = null;
+  selectedId: string = null;
 
   @Input()
   showLinks = false;
 
   @Input()
-  points: ModelMap<PortModel> = {};
+  points: Map<string, PointModel> = new Map();
 
   @Output()
   draggableEntityClicked = new EventEmitter<DraggableEntityClicked>();
@@ -37,7 +36,7 @@ export class NodeLayerComponent {
     this.draggableEntityClicked.emit(event);
   }
 
-  trackByFn(item: KeyValue<number, NodeModel>): number {
-    return item.key;
+  trackByFn(item: BaseModel): string {
+    return item.id;
   }
 }

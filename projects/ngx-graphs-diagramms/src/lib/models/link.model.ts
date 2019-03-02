@@ -9,11 +9,15 @@ export class LinkModel extends BaseModel {
     super(id);
   }
 
-  addPoint(pointId: string, index: number): void {
+  addPoint(pointId: string, index: number): LinkModel {
     const points = this.points;
-    this.points = points.slice(0, index)
+    const copied = points.slice(0, index)
       .concat(pointId)
       .concat(points.slice(index, points.length));
+
+    const cloned = this.clone();
+    cloned.points = copied;
+    return cloned;
   }
 
   clone(): LinkModel {

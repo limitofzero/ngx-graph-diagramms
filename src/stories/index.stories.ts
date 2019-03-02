@@ -21,11 +21,12 @@ import { NgxGraphsDiagrammsModule } from '../../projects/ngx-graphs-diagramms/sr
 import { DefaultPortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-port-widget/default-port-widget.component';
 import { DiagrammWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/diagramm-widget/diagramm-widget.component';
 import { LinkLayerComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/layers/link-layer/link-layer.component';
+import { DiagramModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/diagram.model';
 
-const entityArrayToMap = (arr: BaseModel[]) => arr.reduce((map, entity) => {
-  map[entity.id] = entity;
-  return map;
-}, {});
+function arrayToMap<T extends BaseModel>(entities: T[]): Map<string, T> {
+  const keyValues = entities.map((entity: T): [string, T] => [entity.id, entity]);
+  return new Map(keyValues);
+}
 
 storiesOf('Diagramm widget', module).add('widget', () => {
   const nodeData = { type: 'defaultNode', width: 50, height: 50 };
@@ -48,33 +49,37 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   nodes[0].x = 10;
   nodes[0].y = 10;
   nodes[0].description = 'test1';
-  nodes[0].ports = entityArrayToMap([ports[0]]);
+  nodes[0].ports = new Set([ ports[0].id ]);
 
   nodes[1].x = 10;
   nodes[1].y = 200;
   nodes[1].description = 'test2';
-  nodes[1].ports = entityArrayToMap([ports[1], ports[2] ]);
+  nodes[1].ports = new Set([ports[1].id, ports[2].id ]);
 
   nodes[2].x = 300;
   nodes[2].y = 200;
   nodes[2].description = 'test3';
-  nodes[2].ports = entityArrayToMap([ ports[3] ] );
+  nodes[2].ports = new Set([ ports[3].id ] );
 
   links[0].sourceId = ports[0].id;
   links[0].targetId = ports[1].id;
   links[1].sourceId = ports[2].id;
   links[1].targetId = ports[3].id;
 
-  const nodeMap = entityArrayToMap(nodes);
-  const portMap = entityArrayToMap(ports);
-  const linkMap = entityArrayToMap(links);
+  const nodeMap = arrayToMap(nodes);
+  const portMap = arrayToMap(ports);
+  const linkMap = arrayToMap(links);
+
+  const diagramModel = new DiagramModel({
+    nodes: nodeMap,
+    links: linkMap,
+    ports: portMap
+  });
 
   return {
     component: DiagrammWidgetComponent,
     props: {
-      nodes: nodeMap,
-      ports: portMap,
-      links: linkMap
+      diagramModel
     },
     moduleMetadata: {
       declarations: [

@@ -7,9 +7,9 @@
         <polygon points="0 0, 2 1.5, 0 3" />
       </marker>
     </defs>
-    <ng-container *ngFor="let link of links | keyvalue; trackBy: trackByFn">
-      <g ngx-link-widget [linkModel]="link.value"
-         [coords]="link.value | linkToCoords:portCoords:points"
+    <ng-container *ngFor="let link of links.values(); trackBy: trackByFn">
+      <g ngx-link-widget [linkModel]="link"
+         [coords]="link | linkToCoords:portCoords:points"
          (clicked)="onLinkMouseDownHandler($event)">
       </g>
     </ng-container>

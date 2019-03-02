@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../projects/ngx-graphs-diagramms/tsconfig.lib",
   "compilerOptions": {
     "types": [
       "node"

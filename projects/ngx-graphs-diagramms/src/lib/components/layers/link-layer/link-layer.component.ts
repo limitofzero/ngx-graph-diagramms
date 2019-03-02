@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ModelMap } from '../../../interfaces/model-map';
 import { LinkModel } from '../../../models/link.model';
 import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
 import { PortCoords } from '../../../interfaces/port-coords';
-import { PortModel } from '../../../models/port.model';
+import { BaseModel } from '../../../models/base.model';
+import { PointModel } from '../../../models/point.model';
 
 @Component({
   selector: 'ngx-link-layer',
@@ -12,7 +12,7 @@ import { PortModel } from '../../../models/port.model';
 })
 export class LinkLayerComponent {
   @Input()
-  links: ModelMap<LinkModel> = {};
+  links: Map<string, LinkModel> = new Map();
 
   @Output()
   linkClicked = new EventEmitter<LinkClickedEvent>();
@@ -21,9 +21,13 @@ export class LinkLayerComponent {
   portCoords: PortCoords = {};
 
   @Input()
-  points: ModelMap<PortModel> = {};
+  points: Map<string, PointModel> = new Map();
 
   onLinkMouseDownHandler(event: LinkClickedEvent): void {
     this.linkClicked.emit(event);
+  }
+
+  trackByFn(model: BaseModel): string {
+    return model.id;
   }
 }

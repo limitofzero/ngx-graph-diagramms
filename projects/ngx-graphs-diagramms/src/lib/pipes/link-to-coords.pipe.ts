@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { LinkModel } from '../models/link.model';
-import { PointMap } from '../interfaces/point-map';
 import { Coords } from '../interfaces/coords';
 import { PointModel } from '../models/point.model';
 import { PortCoords } from '../interfaces/port-coords';
@@ -28,14 +27,14 @@ export class LinkToCoordsPipe implements PipeTransform {
     return coords;
   }
 
-  transform(link: LinkModel, ports: PortCoords = {}, points: PointMap = {}): LinkCoords[] {
+  transform(link: LinkModel, ports: PortCoords = {}, points: Map<string, PointModel>): LinkCoords[] {
     if (!link.isValid()) {
       return [];
     }
 
     const source = ports[link.sourceId];
     const target = ports[link.targetId];
-    const pointModels = link.points.map(id => points[id]);
+    const pointModels = link.points.map(id => points.get(id));
 
     const val = LinkToCoordsPipe.getCoords(source, target, pointModels).reduce((acc, coords, index, arr) => {
       if (index !== 0) {

@@ -19,8 +19,8 @@ import { PointModel } from '../../../models/point.model';
 import { LinkCoords } from '../../../pipes/link-to-coords.pipe';
 import { LinkModel } from '../../../models/link.model';
 import { BaseModel } from '../../../models/base.model';
-import { ModelMap } from '../../../interfaces/model-map';
 import { combineLatest } from 'rxjs';
+import { DiagramModel } from '../../../models/diagram.model';
 
 export interface DraggableEntity {
   entity: BaseModel;
@@ -44,13 +44,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   portCoords: PortCoords = {};
 
   @Input()
-  nodes: ModelMap<NodeModel> = {};
-
-  @Input()
-  links: ModelMap<LinkModel> = {};
-
-  @Input()
-  points: ModelMap<PointModel> = {};
+  diagramModel = new DiagramModel({});
 
   @ViewChild('diagramWidget') diagramWidget: ElementRef;
 
@@ -66,9 +60,10 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     point.y = pageY - offsets.offsetTop;
 
     const index = this.getPointIndex(link, range);
-    link.addPoint(point.id, index);
-    this.links = { ...this.links, [link.id]: link };
-    this.points = { ...this.points, [point.id]: point };
+    const cloned = link.addPoint(point.id, index);
+    let diagram = this.diagramModel.setEntity(cloned);
+    diagram = diagram.addEntity(point);
+    this.diagramModel = diagram;
 
     this.setEntityCoords(point, event);
     this.ref.markForCheck();
@@ -78,7 +73,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     const { sourceId } = link;
     const sourceCoords = this.portCoords[sourceId];
     const pointCoords = link.points
-      .map(id => this.points[id])
+      .map(id => this.diagramModel.points.get(id))
       .map(point => ({ x: point.x, y: point.y }));
 
     const leftRangeCoords = { x: range.x1, y: range.y1 };
@@ -165,20 +160,18 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     const x = pointModel.x + diffX;
     const y = pointModel.y + diffY;
 
-    const updatedEntity = pointModel.clone();
-    updatedEntity.x = x;
-    updatedEntity.y = y;
+    const cloned = pointModel.clone();
+    cloned.x = x;
+    cloned.y = y;
 
-    this.points = { ... this.points };
-    this.points[updatedEntity.id] = updatedEntity;
-    this.entityCoords.entity = updatedEntity;
+    this.diagramModel = this.diagramModel.setEntity(cloned);
+    this.entityCoords.entity = cloned;
     this.entityCoords.startY = pageY;
     this.entityCoords.startX = pageX;
     this.ref.markForCheck();
   }
 
   private MoveNode(nodeModel: NodeModel, event: MouseEvent): void {
-    console.log(nodeModel);
     const { pageX, pageY } = event;
     const { startX, startY } = this.entityCoords;
 
@@ -188,13 +181,12 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
     const x = nodeModel.x + diffX;
     const y = nodeModel.y + diffY;
 
-    const updatedEntity = nodeModel.clone();
-    updatedEntity.x = x;
-    updatedEntity.y = y;
+    const cloned = nodeModel.clone();
+    cloned.x = x;
+    cloned.y = y;
 
-    this.nodes = { ... this.nodes };
-    this.nodes[updatedEntity.id] = updatedEntity;
-    this.entityCoords.entity = updatedEntity;
+    this.diagramModel = this.diagramModel.setEntity(cloned);
+    this.entityCoords.entity = cloned;
     this.entityCoords.startY = pageY;
     this.entityCoords.startX = pageX;
     this.updatePorts(nodeModel, diffX, diffY);
@@ -202,8 +194,7 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   private updatePorts(node: NodeModel, diffX, diffY): void {
-    const portsId = Object.keys(node.ports);
-    for (const id of portsId) {
+    for (const id of node.ports.values()) {
       const port = this.portCoords[id];
       if (port) {
         const x = port.x + diffX;
@@ -223,22 +214,20 @@ export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
   nodesRenderedHandler(): void {
     this.nodesRendered = true;
 
-    const coords: PortCoords = Object.keys(this.nodes)
-        .map(id => this.nodes[id])
-        .reduce((coordMap, node) => {
-          const ports = node.ports;
-          const map = Object.keys(ports)
-            .map(id => ports[id])
-            .reduce((mp, port) => {
-              mp[port.id] = port.getConnectPosition(node);
-              return mp;
-            }, {});
+    const nodes = this.diagramModel.nodes.values();
+    for (const node of nodes) {
+      const portIds = node.ports;
+      const coords: PortCoords = {};
 
-          return { ...coordMap, ...map };
-        }, {});
+      for (const portId of portIds) {
+        const port = this.diagramModel.ports.get(portId);
+        const coord = port.getConnectPosition(node);
+        coords[portId] = coord;
+      }
 
-    this.portCoords = coords;
-    console.log(coords);
+      this.portCoords = { ...this.portCoords, ...coords };
+    }
+
     this.ref.detectChanges();
   }
 

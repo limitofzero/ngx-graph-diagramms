@@ -1,15 +1,17 @@
 <div class="diagramm" #diagramWidget>
-  <ngx-node-layer [nodes]="nodes"
-                  [selectedId]="selectedEntityId"
-                  [showLinks]="nodesRendered"
-                  [points]="points"
-                  (draggableEntityClicked)="onDraggableEntityClickedHandler($event)">
-  </ngx-node-layer>
-  <ng-container *ngIf="nodesRendered">
-    <ngx-link-layer [portCoords]="portCoords"
-                    [links]="links"
-                    [points]="points"
-                    (linkClicked)="onLinkClicked($event)">
-    </ngx-link-layer>
-  </ng-container>
+  <div class="movable">
+    <ngx-node-layer [nodes]="diagramModel.nodes"
+                    [selectedId]="selectedEntityId"
+                    [showLinks]="nodesRendered"
+                    [points]="diagramModel.points"
+                    (draggableEntityClicked)="onDraggableEntityClickedHandler($event)">
+    </ngx-node-layer>
+    <ng-container *ngIf="nodesRendered">
+      <ngx-link-layer [portCoords]="portCoords"
+                      [links]="diagramModel.links"
+                      [points]="diagramModel.points"
+                      (linkClicked)="onLinkClicked($event)">
+      </ngx-link-layer>
+    </ng-container>
+  </div>
 </div>

@@ -1,6 +1,4 @@
 import { BaseModel } from './base.model';
-import { PortModel } from './port.model';
-import { ModelMap } from '../interfaces/model-map';
 
 export class NodeModel extends BaseModel {
   x: number;
@@ -9,7 +7,7 @@ export class NodeModel extends BaseModel {
   height: number;
   readonly type: string;
 
-  ports: ModelMap<PortModel> = {};
+  ports: Set<string>;
 
   constructor(data: {
     type: string,
@@ -18,7 +16,7 @@ export class NodeModel extends BaseModel {
     y?: number,
     width?: number,
     height?: number,
-    ports?: ModelMap<PortModel>
+    ports?: Set<string>
   }) {
     super(data.id);
     const { type, x, y, ports, width, height } = data;
@@ -27,19 +25,11 @@ export class NodeModel extends BaseModel {
     this.y = y || 0;
     this.width = width || 0;
     this.height = height || 0;
-    this.ports = ports || {};
+    this.ports = ports || new Set();
   }
 
   clone(): NodeModel {
     return new NodeModel(this);
-  }
-
-  setPositionAndClone(x: number, y: number): NodeModel {
-    const cloned = this.clone();
-    cloned.x = x;
-    cloned.y = y;
-
-    return cloned;
   }
 }
 
