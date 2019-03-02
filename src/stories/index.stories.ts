@@ -19,7 +19,7 @@ import { LinkModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/li
 import { BaseModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/base.model';
 import { NgxGraphsDiagrammsModule } from '../../projects/ngx-graphs-diagramms/src/lib/ngx-graphs-diagramms.module';
 import { DefaultPortWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/default-widgets/default-port-widget/default-port-widget.component';
-import { DiagrammWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/diagramm-widget/diagramm-widget.component';
+import { DiagramWidgetComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/widgets/diagramm-widget/diagram-widget.component';
 import { LinkLayerComponent } from '../../projects/ngx-graphs-diagramms/src/lib/components/layers/link-layer/link-layer.component';
 import { DiagramModel } from '../../projects/ngx-graphs-diagramms/src/lib/models/diagram.model';
 
@@ -77,7 +77,7 @@ storiesOf('Diagramm widget', module).add('widget', () => {
   });
 
   return {
-    component: DiagrammWidgetComponent,
+    component: DiagramWidgetComponent,
     props: {
       diagramModel
     },

@@ -30,11 +30,11 @@ export interface DraggableEntity {
 
 @Component({
   selector: 'ngx-diagramm-widget',
-  templateUrl: './diagramm-widget.component.html',
-  styleUrls: ['./diagramm-widget.component.scss'],
+  templateUrl: './diagram-widget.component.html',
+  styleUrls: ['./diagram-widget.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DiagrammWidgetComponent implements AfterViewInit, OnDestroy {
+export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
   private selectedEntityId: string = null;

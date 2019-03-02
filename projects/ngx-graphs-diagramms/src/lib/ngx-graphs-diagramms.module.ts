@@ -1,5 +1,5 @@
 import { ANALYZE_FOR_ENTRY_COMPONENTS, InjectionToken, ModuleWithProviders, NgModule, Type } from '@angular/core';
-import { DiagrammWidgetComponent } from './components/widgets/diagramm-widget/diagramm-widget.component';
+import { DiagramWidgetComponent } from './components/widgets/diagramm-widget/diagram-widget.component';
 import { NodeLayerComponent } from './components/layers/node-layer/node-layer.component';
 import { DefaultNodeWidgetComponent } from './components/default-widgets/default-node-widget/default-node-widget.component';
 import { NodeWidgetComponent } from './components/widgets/node-widget/node-widget.component';
@@ -14,7 +14,7 @@ import { LinkLayerComponent } from './components/layers/link-layer/link-layer.co
 // todo вынести все дефолтные компоненты в отдельный модуль
 @NgModule({
   declarations: [
-    DiagrammWidgetComponent,
+    DiagramWidgetComponent,
     NodeLayerComponent,
     DefaultNodeWidgetComponent,
     NodeWidgetComponent,
@@ -32,7 +32,7 @@ import { LinkLayerComponent } from './components/layers/link-layer/link-layer.co
   providers: [
     WidgetFactoryService,
   ],
-  exports: [DiagrammWidgetComponent]
+  exports: [DiagramWidgetComponent]
 })
 export class NgxGraphsDiagrammsModule {
   static forRoot(componentMap: { [s: string]: Type<any> }): ModuleWithProviders {
