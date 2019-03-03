@@ -34,6 +34,14 @@ export class DiagramModel extends BaseModel {
     this.ports = ports || new Map();
   }
 
+  cloneWithCoords(x: number, y: number): DiagramModel {
+    const cloned = this.clone();
+    cloned.x = x;
+    cloned.y = y;
+
+    return cloned;
+  }
+
   clone(): DiagramModel {
     return new DiagramModel(this);
   }

@@ -18,12 +18,13 @@ import { LinkClickedEvent } from '../../../interfaces/link-clicked-event';
 import { PointModel } from '../../../models/point.model';
 import { LinkCoords } from '../../../pipes/link-to-coords.pipe';
 import { LinkModel } from '../../../models/link.model';
-import { BaseModel } from '../../../models/base.model';
 import { combineLatest } from 'rxjs';
 import { DiagramModel } from '../../../models/diagram.model';
 
+export type Draggable = NodeModel | PointModel | DiagramModel;
+
 export interface DraggableEntity {
-  entity: BaseModel;
+  entity: Draggable;
   startX: number;
   startY: number;
 }
@@ -54,7 +55,7 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
     const { link, event, range } = clickEvent;
     const { pageX, pageY } = event;
 
-    const point = new PointModel();
+    const point = new PointModel({});
     const offsets = this.getDiagrammOffsets();
     point.x = pageX - offsets.offsetLeft - this.diagramModel.x;
     point.y = pageY - offsets.offsetTop - this.diagramModel.y;
@@ -65,7 +66,7 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
     diagram = diagram.addEntity(point);
     this.diagramModel = diagram;
 
-    this.setEntityCoords(point, event);
+    this.setEntityCoords(point, event.pageX, event.pageY);
     event.stopPropagation();
     this.ref.markForCheck();
   }
@@ -96,20 +97,17 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   onDraggableEntityClickedHandler(entityEvent: DraggableEntityClicked): void {
-    const { entity, event } = entityEvent;
+    const { entity } = entityEvent;
 
     if (entity) {
       this.selectedEntityId = entity.id;
-      this.setEntityCoords(entity, event);
+      const { pageX, pageY } = entityEvent.event;
+      this.setEntityCoords(entity, pageX, pageY);
       event.stopPropagation();
     }
   }
 
-  setEntityCoords(entity: BaseModel, event: MouseEvent): void {
-    const { pageX, pageY } = event;
-    const startX = pageX;
-    const startY = pageY;
-
+  setEntityCoords(entity: Draggable, startX, startY): void {
     this.entityCoords = {
       entity,
       startX,
@@ -144,74 +142,28 @@ export class DiagramWidgetComponent implements AfterViewInit, OnDestroy {
   }
 
   private onMouseMoveHandler(event: MouseEvent): void {
-    const { entity } = this.entityCoords;
-    if (entity instanceof NodeModel) {
-      this.MoveNode(entity as NodeModel, event);
-    } else if (entity instanceof PointModel) {
-      this.MovePoint(entity as PointModel, event);
+    const { pageX, pageY } = event;
+    const { startX, startY } = this.entityCoords;
+
+    const diffX = (pageX - startX);
+    const diffY = (pageY - startY);
+
+    let { entity } = this.entityCoords;
+    const x = entity.x + diffX;
+    const y = entity.y + diffY;
+
+    entity = entity.cloneWithCoords(x, y);
+
+    if (entity instanceof PointModel) {
+      this.diagramModel = this.diagramModel.setEntity(entity);
     } else if (entity instanceof DiagramModel) {
-      const { pageX, pageY } = event;
-      const { startX, startY } = this.entityCoords;
-
-      const diffX = (pageX - startX);
-      const diffY = (pageY - startY);
-
-      const x = this.diagramModel.x + diffX;
-      const y = this.diagramModel.y + diffY;
-
-      const cloned = this.diagramModel.clone();
-      cloned.x = x;
-      cloned.y = y;
-
-      this.diagramModel = cloned;
-      this.entityCoords.entity = cloned;
-      this.entityCoords.startY = pageY;
-      this.entityCoords.startX = pageX;
-      console.log(this.diagramModel);
-      this.ref.markForCheck();
+      this.diagramModel = entity;
+    } else if (entity instanceof NodeModel) {
+      this.diagramModel = this.diagramModel.setEntity(entity);
+      this.updatePorts(entity as NodeModel, diffX, diffY);
     }
-  }
 
-  private MovePoint(pointModel: PointModel, event: MouseEvent): void {
-    const { pageX, pageY } = event;
-    const { startX, startY } = this.entityCoords;
-
-    const diffX = (pageX - startX);
-    const diffY = (pageY - startY);
-
-    const x = pointModel.x + diffX;
-    const y = pointModel.y + diffY;
-
-    const cloned = pointModel.clone();
-    cloned.x = x;
-    cloned.y = y;
-
-    this.diagramModel = this.diagramModel.setEntity(cloned);
-    this.entityCoords.entity = cloned;
-    this.entityCoords.startY = pageY;
-    this.entityCoords.startX = pageX;
-    this.ref.markForCheck();
-  }
-
-  private MoveNode(nodeModel: NodeModel, event: MouseEvent): void {
-    const { pageX, pageY } = event;
-    const { startX, startY } = this.entityCoords;
-
-    const diffX = (pageX - startX);
-    const diffY = (pageY - startY);
-
-    const x = nodeModel.x + diffX;
-    const y = nodeModel.y + diffY;
-
-    const cloned = nodeModel.clone();
-    cloned.x = x;
-    cloned.y = y;
-
-    this.diagramModel = this.diagramModel.setEntity(cloned);
-    this.entityCoords.entity = cloned;
-    this.entityCoords.startY = pageY;
-    this.entityCoords.startX = pageX;
-    this.updatePorts(nodeModel, diffX, diffY);
+    this.setEntityCoords(entity, pageX, pageY);
     this.ref.markForCheck();
   }
 

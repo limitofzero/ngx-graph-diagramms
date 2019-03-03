@@ -28,6 +28,14 @@ export class NodeModel extends BaseModel {
     this.ports = ports || new Set();
   }
 
+  cloneWithCoords(x: number, y: number): NodeModel {
+    const cloned = this.clone();
+    cloned.x = x;
+    cloned.y = y;
+
+    return cloned;
+  }
+
   clone(): NodeModel {
     return new NodeModel(this);
   }

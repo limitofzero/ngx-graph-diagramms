@@ -1,6 +1,6 @@
-import { BaseModel } from '../models/base.model';
+import { Draggable } from '../components/widgets/diagramm-widget/diagram-widget.component';
 
 export interface DraggableEntityClicked {
-  entity: BaseModel;
+  entity: Draggable;
   event: MouseEvent;
 }
